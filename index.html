@@ -288,6 +288,19 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
         </div>
       </div>
 
+      <!-- shed / cabin occupancy branch -->
+      <div id="shedBranch" style="display:none">
+        <div class="field" id="f-shedLive">
+          <label class="lab">Will anyone live or sleep in this shed, portable building, or cabin? <button type="button" class="helpbtn" data-help="shedoccupy" aria-label="Help: living in a shed or cabin">?</button></label>
+          <p class="hint">This includes living in it full-time, sleeping in it sometimes, using it as a guest room, or renting it out — even "just temporarily."</p>
+          <div class="choice-row">
+            <label class="pill"><input type="radio" name="shedOccupy" value="yes"> Yes — someone will live or sleep in it</label>
+            <label class="pill"><input type="radio" name="shedOccupy" value="no"> No — nobody will live or sleep in it; storage / accessory use only</label>
+          </div>
+          <div class="err-text">Please answer yes or no.</div>
+        </div>
+      </div>
+
       <div class="btnrow"><button type="button" class="btn primary" data-next>Continue</button></div>
     </div>
   </section>
@@ -346,6 +359,18 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
           <label class="choice"><input type="checkbox" name="workType" value="Miscellaneous (Car Port etc.)"><span><span class="t">Miscellaneous (Car Port etc.)</span></span></label>
           <label class="choice"><input type="checkbox" name="workType" value="Miscellaneous Roof"><span><span class="t">Miscellaneous Roof</span></span></label>
         </div><div class="err-text">Please check at least one type of work.</div>
+      </div>
+
+      <div id="jobShedBox" style="display:none">
+        <div class="field" id="f-shedLiveJob">
+          <label class="lab">Will anyone live or sleep in this shed, portable building, or cabin? <button type="button" class="helpbtn" data-help="shedoccupy" aria-label="Help: living in a shed or cabin">?</button></label>
+          <p class="hint">This includes living in it full-time, sleeping in it sometimes, using it as a guest room, or renting it out — even "just temporarily."</p>
+          <div class="choice-row">
+            <label class="pill"><input type="radio" name="shedOccupyJob" value="yes"> Yes — someone will live or sleep in it</label>
+            <label class="pill"><input type="radio" name="shedOccupyJob" value="no"> No — nobody will live or sleep in it; storage / accessory use only</label>
+          </div>
+          <div class="err-text">Please answer yes or no.</div>
+        </div>
       </div>
 
       <div class="field" id="f-roofLayers" style="display:none">
@@ -576,6 +601,7 @@ var HELP = {
   jobkind:{t:"What are you doing?",b:"<p>Pick the one closest to your job. This decides which questions you get — a trade-only job skips the building questions, and new construction gets all of them.</p><p>If you're not sure, pick the closest one and call the office at 918-675-4373.</p>"},
   tradeonly:{t:"Which trade is the work?",b:"<p><strong>Electrical</strong> — wiring, panels, outlets, lighting. <strong>Plumbing</strong> — water, drain, sewer, and gas lines, water heaters. <strong>Heat / Air (HVAC)</strong> — furnaces, air conditioners, ductwork.</p><p>Trade work must be done by a contractor licensed with the State of Oklahoma and the City of Commerce, and you'll need their license number on the next screens.</p>"},
   homekind:{t:"Manufactured, modular, tiny, or portable — what's the difference?",b:"<p><strong>Manufactured home:</strong> built completely in a factory to the federal HUD code. If it has (or had) a HUD label, it's manufactured — most people still call these mobile homes.</p><p><strong>Modular home:</strong> built in a factory in sections to the same code as a regular house, then assembled on a permanent foundation. It is not a manufactured home.</p><p><strong>Tiny home:</strong> a very small house, generally under 400 square feet.</p><p><strong>Portable building / cabin:</strong> a shed-style building delivered whole on a truck (Derksen-type cabins are the common example). These are storage buildings — they are not built or approved as houses.</p>"},
+  shedoccupy:{t:"Living or sleeping in a shed or cabin",b:"<p>A shed, portable building, or portable cabin (like a Derksen cabin) is a <strong>storage building</strong>. It is not built or approved as a house, so <strong>nobody can live or sleep in it</strong> — not the owner, not family, not a renter, and not 'just for a little while.' Finishing the inside with a bed, a kitchenette, or insulation does not change that.</p><p>If anyone will live or sleep in it, this packet cannot continue — call City Hall at 918-675-4373 and ask what kinds of homes can be permitted on your lot instead. If it is only for storage or accessory use and nobody will ever sleep in it, answer No.</p>"},
   livein:{t:"Will you live in it yourself?",b:"<p>For a home being placed on a lot, city code expects the owner to live in the home. If the plan is to rent it out or house someone else, stop here and talk to City Hall first — that situation follows a different path, and a permit packet signed for the wrong use can cause real problems later.</p>"},
   homeyear:{t:"Year the home was built",b:"<p>Find it on the dealer's invoice or the home's data plate (usually inside a kitchen cabinet or the electrical panel). City rules limit how old a manufactured home can be when it's placed, so the office needs the exact year.</p>"},
   rentown:{t:"What is rent-to-own?",b:"<p>Rent-to-own means you're making payments toward owning the home but don't fully own it yet — common with portable cabins and some manufactured homes. It matters because the office has to verify who actually owns the home and the lot before a packet can move forward.</p>"},
@@ -895,6 +921,12 @@ var ES={
 "Questions for office":"Preguntas para la oficina",
 "Agreements signed":"Acuerdos firmados",
 "Portable building (storage only)":"Edificio portátil (solo almacenamiento)",
+"Will anyone live or sleep in this shed, portable building, or cabin?":"¿Alguien vivirá o dormirá en este cobertizo, edificio portátil o cabaña?",
+"This includes living in it full-time, sleeping in it sometimes, using it as a guest room, or renting it out — even \"just temporarily.\"":"Esto incluye vivir en él a tiempo completo, dormir en él a veces, usarlo como cuarto de huéspedes o rentarlo — incluso «solo temporalmente».",
+"Yes — someone will live or sleep in it":"Sí — alguien vivirá o dormirá en él",
+"No — nobody will live or sleep in it; storage / accessory use only":"No — nadie vivirá ni dormirá en él; solo almacenamiento / uso accesorio",
+"Answer whether anyone will live or sleep in the shed, portable building, or cabin.":"Responda si alguien vivirá o dormirá en el cobertizo, edificio portátil o cabaña.",
+"Shed / cabin occupancy":"Ocupación del cobertizo / cabaña",
 "Accessory / storage":"Edificio accesorio / almacenamiento",
 "Addition / remodel":"Adición / remodelación",
 "Addition/Remodel":"Adición / Remodelación",
@@ -909,6 +941,7 @@ var LIC_HELP={
 en:{t:'Why license numbers are required',b:'<p>The paper packet states it plainly: <strong>a permit will not be issued without license numbers (if required).</strong></p><p>Electrical, plumbing, and heat/air work in Commerce must be done by contractors licensed with the State of Oklahoma and the City of Commerce. The number proves the license is real and current — the office verifies it on the staff review page.</p>'},
 es:{t:'Por qué se requieren los números de licencia',b:'<p>El paquete en papel lo dice claramente: <strong>no se emitirá un permiso sin los números de licencia (si se requieren).</strong></p><p>El trabajo de electricidad, plomería y calefacción/aire en Commerce debe hacerlo contratistas con licencia del Estado de Oklahoma y de la Ciudad de Commerce. El número comprueba que la licencia es real y está vigente — la oficina lo verifica en la página de revisión del personal.</p>'}};
 var STOPS_ES={
+shedlive:{t:'Un cobertizo o una cabaña portátil no se puede habitar',b:'Un cobertizo, edificio portátil o cabaña portátil — como una cabaña Derksen — se construye y se vende como <strong>edificio de almacenamiento o accesorio</strong>, no como casa. <strong>No se puede vivir ni dormir en él</strong>, y la ciudad no puede emitir un permiso para usarlo como vivienda — ni a tiempo completo, ni a tiempo parcial, ni como cuarto de huéspedes o renta, ni «solo temporalmente», sin importar cómo esté terminado por dentro.<br><br>Si nadie vivirá ni dormirá en él y es realmente solo para almacenamiento o uso accesorio, empiece de nuevo y responda «No» a esa pregunta. Si lo que necesita es un espacio para vivir, comuníquese primero con el Ayuntamiento al <a href="tel:9186754373">918-675-4373</a> — le pueden decir qué tipos de viviendas pueden autorizarse en su lote.'},
 portable:{t:'Un edificio portátil no puede autorizarse como vivienda',b:'Un edificio portátil o tipo cabaña/cobertizo — como una cabaña Derksen — se construye y se vende como <strong>edificio de almacenamiento</strong>, no como casa. No cumple las reglas para ser una vivienda, por lo que la ciudad no puede emitir un permiso de construcción para que alguien viva en uno, aunque esté terminado por dentro.<br><br>Si solo lo necesita para almacenamiento, empiece de nuevo y elija «Edificio accesorio, cochera o almacenamiento». Si el objetivo es un espacio para vivir, hable primero con el Ayuntamiento sobre qué tipos de viviendas pueden autorizarse en su lote.'},
 rental:{t:'Las viviendas colocadas deben ser habitadas por el dueño',b:'Para una vivienda manufacturada, modular o pequeña colocada en un lote, el código de la ciudad espera que el dueño viva en la vivienda. Una vivienda colocada para <strong>rentarse</strong>, o para que viva otra persona, no cumple ese requisito — por lo que este paquete en línea debe detenerse aquí.<br><br>Eso no siempre significa «no» — significa que esto necesita una conversación con el Ayuntamiento antes de presentar cualquier paquete, para que reciba la respuesta correcta por escrito primero.'},
 lot:{t:'Primero necesita los documentos del lote',b:'Antes de colocar una vivienda, debe <strong>ser dueño del lote</strong> o tener una <strong>opción por escrito o un contrato de compra firmado</strong>. Un acuerdo verbal no es suficiente, y el paquete no puede avanzar sin esos documentos — se le pedirá adjuntarlos más adelante en este formulario.<br><br>Cuando el lote sea suyo o el contrato esté firmado, vuelva y termine el paquete — solo toma unos minutos.'},
@@ -917,6 +950,7 @@ var HELP_ES = {
   jobkind:{t:"¿Qué va a hacer?",b:"<p>Elija la opción más cercana a su trabajo. Esto decide qué preguntas recibirá — un trabajo solo de un oficio omite las preguntas de construcción, y la construcción nueva las recibe todas.</p><p>Si no está seguro, elija la más cercana y llame a la oficina al 918-675-4373.</p>"},
   tradeonly:{t:"¿Qué oficio es el trabajo?",b:"<p><strong>Electricidad</strong> — cableado, tableros, enchufes, iluminación. <strong>Plomería</strong> — tuberías de agua, drenaje, alcantarillado y gas, calentadores de agua. <strong>Calefacción / Aire (HVAC)</strong> — calefactores, aires acondicionados, ductos.</p><p>El trabajo de oficios debe hacerlo un contratista con licencia del Estado de Oklahoma y de la Ciudad de Commerce, y necesitará su número de licencia en las siguientes pantallas.</p>"},
   homekind:{t:"Manufacturada, modular, pequeña o portátil — ¿cuál es la diferencia?",b:"<p><strong>Vivienda manufacturada:</strong> construida completamente en una fábrica según el código federal HUD. Si tiene (o tuvo) una etiqueta HUD, es manufacturada — la mayoría de la gente las sigue llamando casas móviles.</p><p><strong>Vivienda modular:</strong> construida en una fábrica por secciones con el mismo código que una casa normal, y luego ensamblada sobre una cimentación permanente. No es una vivienda manufacturada.</p><p><strong>Vivienda pequeña (tiny home):</strong> una casa muy pequeña, generalmente de menos de 400 pies cuadrados. Necesita primero un permiso de uso específico aprobado por la Comisión de Planificación, y solo el dueño del lote puede solicitarlo.</p><p><strong>Edificio portátil / cabaña:</strong> un edificio tipo cobertizo entregado completo en camión (las cabañas Derksen son el ejemplo común). Son edificios de almacenamiento — no están construidos ni aprobados como casas.</p>"},
+  shedoccupy:{t:"Vivir o dormir en un cobertizo o cabaña",b:"<p>Un cobertizo, edificio portátil o cabaña portátil (como una cabaña Derksen) es un <strong>edificio de almacenamiento</strong>. No está construido ni aprobado como casa, por lo que <strong>nadie puede vivir ni dormir en él</strong> — ni el dueño, ni la familia, ni un inquilino, y tampoco «solo por un tiempo». Terminar el interior con una cama, una cocineta o aislamiento no cambia eso.</p><p>Si alguien vivirá o dormirá en él, este paquete no puede continuar — llame al Ayuntamiento al 918-675-4373 y pregunte qué tipos de viviendas pueden autorizarse en su lote. Si es solo para almacenamiento o uso accesorio y nadie dormirá nunca en él, responda No.</p>"},
   livein:{t:"¿Vivirá usted en ella?",b:"<p>Para una vivienda que se coloca en un lote, el código de la ciudad espera que el dueño viva en la vivienda. Si el plan es rentarla o alojar a otra persona, deténgase aquí y hable primero con el Ayuntamiento — esa situación sigue un camino diferente, y un paquete firmado para el uso equivocado puede causar problemas reales después.</p>"},
   homeyear:{t:"Año en que se construyó la vivienda",b:"<p>Encuéntrelo en la factura del distribuidor o en la placa de datos de la vivienda (generalmente dentro de un gabinete de la cocina o en el tablero eléctrico). Las reglas de la ciudad limitan la antigüedad que puede tener una vivienda manufacturada al colocarse, por lo que la oficina necesita el año exacto.</p>"},
   rentown:{t:"¿Qué es rent-to-own (arrendamiento con opción a compra)?",b:"<p>Significa que está haciendo pagos para llegar a ser dueño de la vivienda, pero aún no es completamente suya — común con cabañas portátiles y algunas viviendas manufacturadas. Importa porque la oficina debe verificar quién es realmente el dueño de la vivienda y del lote antes de que un paquete pueda avanzar.</p>"},
@@ -1050,12 +1084,13 @@ function validateStep(id){
   if(id==='screening'){
     var k=jobKind();
     failIf(!k,'Pick what you are doing.',['f-jobKind'],errs,inv);
+    if(shedRelevant()) failIf(!radioVal('shedOccupy'),'Answer whether anyone will live or sleep in the shed, portable building, or cabin.',['f-shedLive'],errs,inv);
     if(k==='trade') failIf(!radioVal('tradeOnly'),'Pick which trade the work is.',['f-tradeOnly'],errs,inv);
     if(k==='home'){
       var hk=homeKind();
       failIf(!hk,'Pick what kind of home it is.',['f-homeKind'],errs,inv);
       if(hk){
-        failIf(!radioVal('willLive'),'Answer whether you will live in it yourself.',['f-liveIn'],errs,inv);
+        if(hk!=='portable') failIf(!radioVal('willLive'),'Answer whether you will live in it yourself.',['f-liveIn'],errs,inv);
         if(hk!=='portable'){
           failIf(!val('homeYear')||+val('homeYear')<1950,'Enter the year the home was built.',['f-homeYear'],errs,inv);
           failIf(!radioVal('rentOwn'),'Answer whether you are buying it rent-to-own.',['f-rentOwn'],errs,inv);
@@ -1076,6 +1111,7 @@ function validateStep(id){
     failIf(!val('jobAddr'),'Enter the job location address.',['f-jobAddr'],errs,inv);
     failIf(!radioVal('propType'),'Pick Residential, Commercial, or Industry.',['f-propType'],errs,inv);
     failIf(checkedVals('workType').length===0,'Check at least one type of work.',['f-workTypes'],errs,inv);
+    if(jobShedApplies()) failIf(!radioVal('shedOccupyJob'),'Answer whether anyone will live or sleep in the shed, portable building, or cabin.',['f-shedLiveJob'],errs,inv);
     if(needsRoofLayers()) failIf(!val('roofLayers'),'Enter the total number of roof layers.',['f-roofLayers'],errs,inv);
     if(showTradesPick()) failIf(checkedVals('tradesPick').length===0,'Check the licensed trades in this job, or "None."',['f-tradesPick'],errs,inv);
     failIf(val('jobDesc').length<10,'Describe the job in at least a sentence or two.',['f-jobDesc'],errs,inv);
@@ -1118,8 +1154,24 @@ function validateStep(id){
 function needsRoofLayers(){return jobKind()==='roof'||checkedVals('workType').indexOf('Miscellaneous Roof')>=0}
 function showTradesPick(){return ['addition','accessory','misc'].indexOf(jobKind())>=0}
 
+/* shed / portable cabin occupancy: asked in every flow that involves one */
+function shedRelevant(){var k=jobKind();return k==='accessory'||k==='misc'||(k==='home'&&homeKind()==='portable')}
+function jobShedApplies(){return !shedRelevant()&&checkedVals('workType').indexOf('Accessory Building for Storage')>=0}
+function syncShed(){
+  var sb=$('shedBranch'); if(sb) sb.style.display=shedRelevant()?'block':'none';
+  var jb=$('jobShedBox'); if(jb) jb.style.display=jobShedApplies()?'block':'none';
+}
+function shedLiveStop(){
+  if(radioVal('shedOccupy')==='yes'||radioVal('shedOccupyJob')==='yes'){
+    return {id:'shedlive',t:"A shed or portable cabin can't be lived in",
+      b:'A shed, portable building, or portable cabin — like a Derksen cabin — is built and sold as a <strong>storage or accessory building</strong>, not as a house. It <strong>cannot be lived in or slept in</strong>, and the city cannot issue a permit for one to be used as a home — not full-time, not part-time, not as a guest room or a rental, and not "just temporarily," no matter how it is finished out inside.<br><br>If nobody will live or sleep in it and it is truly only for storage or accessory use, start over and answer "No" to that question. If living space is what you need, contact City Hall at <a href="tel:9186754373">918-675-4373</a> first — they can tell you what kinds of homes can be permitted on your lot.'};
+  }
+  return null;
+}
+
 /* hard stops checked after screening validates */
 function screeningStop(){
+  var shedStop=shedLiveStop(); if(shedStop) return shedStop;
   if(jobKind()!=='home') return null;
   var hk=homeKind();
   if(hk==='portable'&&radioVal('willLive')==='yes'){
@@ -1153,8 +1205,10 @@ document.querySelectorAll('input[name="jobKind"]').forEach(function(r){
 document.querySelectorAll('input[name="homeKind"]').forEach(function(r){
   r.addEventListener('change',function(){
     $('homeQs').style.display='block';
+    $('f-liveIn').style.display=homeKind()==='portable'?'none':'block';
     $('homeDetailQs').style.display=homeKind()==='portable'?'none':'block';
     $('tinyNotice').style.display=homeKind()==='tiny'?'block':'none';
+    syncShed();
   });
 });
 function syncWorkTypes(){
@@ -1171,9 +1225,10 @@ function syncJobStep(){
   $('tradesPickBox').style.display=showTradesPick()?'block':'none';
   if(jobKind()==='home'){var r=document.querySelector('input[name="propType"][value="Residential"]');if(r){r.checked=true;highlightChoice(r)}}
   buildTradeBlocks();
+  syncShed();
 }
 document.querySelectorAll('input[name="workType"]').forEach(function(c){
-  c.addEventListener('change',function(){$('f-roofLayers').style.display=needsRoofLayers()?'block':'none'});
+  c.addEventListener('change',function(){$('f-roofLayers').style.display=needsRoofLayers()?'block':'none';syncShed()});
 });
 document.querySelectorAll('input[name="tradesPick"]').forEach(function(c){
   c.addEventListener('change',function(){
@@ -1272,7 +1327,10 @@ document.querySelectorAll('[data-next]').forEach(function(b){
       var stop=screeningStop(); if(stop){var so=(LANG==='es'&&STOPS_ES[stop.id])?STOPS_ES[stop.id]:stop; showStop(so.t,so.b);return}
       syncJobStep();
     }
-    if(id==='job'){buildTradeBlocks()}
+    if(id==='job'){
+      var jstop=shedLiveStop(); if(jstop){var jso=(LANG==='es'&&STOPS_ES[jstop.id])?STOPS_ES[jstop.id]:jstop; showStop(jso.t,jso.b);return}
+      buildTradeBlocks();
+    }
     var steps=activeSteps(); var idx=steps.indexOf(id);
     var next=steps[idx+1]; if(next) showStep(next);
   });
@@ -1295,6 +1353,8 @@ function summaryRows(){
   if(jobKind()==='home'){add('Kind of home',tx({'manufactured':'Manufactured home','modular':'Modular home','tiny':'Tiny home','portable':'Portable building (storage only)'}[homeKind()]||homeKind()));
     add('Year built',val('homeYear')); add('Owns lot / contract',lotDisp(radioVal('ownLot'))); add('Will live in it',ynDisp(radioVal('willLive'))); add('Rent-to-own',ynDisp(radioVal('rentOwn')));}
   if(jobKind()==='trade') add('Trade',tradeDisp(radioVal('tradeOnly'))||'');
+  var shedAns=radioVal('shedOccupy')||radioVal('shedOccupyJob');
+  if(shedAns) add('Shed / cabin occupancy',tx(shedAns==='yes'?'Yes':'No'));
   add('Owner',val('ownerName')+' — '+val('ownerAddr')+' — '+val('ownerPhone'));
   add('Contractor',val('conName')+' — '+val('conAddr')+' — '+val('conPhone'));
   add('Job address',val('jobAddr'));
@@ -1405,6 +1465,7 @@ function buildPacket(){
 
 /* ================= SUBMIT ================= */
 $('submitBtn').addEventListener('click',function(){
+  var sstop=shedLiveStop(); if(sstop){var sso=(LANG==='es'&&STOPS_ES[sstop.id])?STOPS_ES[sstop.id]:sstop; showStop(sso.t,sso.b);return}
   var checks=fullCheck();
   if(checks.length){renderReview();showErrors(['Your packet is not complete yet — use the "Fix it" buttons above to finish the missing items.'],[]);return}
   buildPacket();
