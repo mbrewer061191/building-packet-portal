@@ -835,6 +835,8 @@ var ES={
 "Review — is everything right?":"Revisión — ¿está todo correcto?",
 "Check this summary. Anything missing is listed at the top with a button that takes you straight to it. When it's all complete, submit — then you'll get the print-ready packet exactly as the office will print it.":"Revise este resumen. Todo lo que falte aparece arriba con un botón que lo lleva directamente allí. Cuando todo esté completo, envíelo — entonces recibirá el paquete listo para imprimir, exactamente como lo imprimirá la oficina.",
 "Submit packet":"Enviar paquete",
+"Sending…":"Enviando…",
+"The packet could not be sent. Check your connection and try again, or call City Hall at 918-675-4373.":"No se pudo enviar el paquete. Revise su conexión e inténtelo de nuevo, o llame al Ayuntamiento al 918-675-4373.",
 "Submitting sends this packet to the City of Commerce office. The office prints it on the paper packet format, and it also goes into the city's code-enforcement system as a new submission. You will not get access to that system — this page is the only screen you need.":"Al enviar, este paquete llega a la oficina de la Ciudad de Commerce. La oficina lo imprime en el formato del paquete en papel, y también entra al sistema de cumplimiento de códigos de la ciudad como una nueva solicitud. Usted no tendrá acceso a ese sistema — esta página es la única pantalla que necesita.",
 "This one needs City Hall first":"Este caso necesita primero pasar por el Ayuntamiento",
 "City of Commerce — Code Enforcement":"Ciudad de Commerce — Cumplimiento de Códigos",
@@ -1464,16 +1466,88 @@ function buildPacket(){
 }
 
 /* ================= SUBMIT ================= */
+var RECEIVER_URL='https://script.google.com/macros/s/AKfycbyoaqMyDRY5-Xum2tcIP1VZjkIVvaZkkQiUkUhH5AIYnLBoXhVQ1POr5So6X67W3wUdNA/exec';
+var sending=false;
+function collectPacket(){
+  var trades={};
+  tradesInvolved().forEach(function(t){trades[TRADE_LABEL[t]]={company:val('trade-name-'+t),license:val('trade-lic-'+t)}});
+  return {
+    jobKind:jobKind(),
+    jobKindLabel:{'new':'Building something new','addition':'Addition / remodel','accessory':'Accessory / storage','roof':'Roof work only','trade':'Trade work only','home':'Placing a home on a lot','misc':'Other'}[jobKind()]||jobKind(),
+    tradeOnly:radioVal('tradeOnly'),
+    homeKind:homeKind(),
+    willLive:radioVal('willLive'),
+    homeYear:val('homeYear'),
+    rentOwn:radioVal('rentOwn'),
+    ownLot:radioVal('ownLot'),
+    shedOccupy:radioVal('shedOccupy')||radioVal('shedOccupyJob'),
+    owner:{name:val('ownerName'),address:val('ownerAddr'),phone:val('ownerPhone')},
+    contractor:{name:val('conName'),address:val('conAddr'),phone:val('conPhone')},
+    job:{address:val('jobAddr'),propertyType:radioVal('propType'),workTypes:checkedVals('workType'),roofLayers:val('roofLayers'),tradesPicked:checkedVals('tradesPick'),description:val('jobDesc'),estCost:val('cost'),sqFt:needsSqft()?val('sqft'):''},
+    trades:trades,
+    plans:{materials:val('materials'),foundation:radioVal('foundation'),studs:radioVal('studs'),roofType:radioVal('roofType'),roofShape:radioVal('roofShape'),sanitary:radioVal('sanitary'),drawingDataUrl:hasDrawing?pad.toDataURL('image/png'):'',sitePlanFiles:fileNames('siteplan')},
+    homeFiles:{deed:fileNames('deed'),invoice:fileNames('invoice')},
+    site:{docsAttached:radioVal('docsAttached'),plansFiles:fileNames('plans'),grading:radioVal('grading'),stormPlanFile:fileNames('storm'),hasQuestions:radioVal('hasQ'),questionText:val('qText')},
+    agreements:{licensedContractorsAgreed:$('agree1').checked,hoaCovenantsAgreed:$('agree2').checked,signatureName:val('sigName'),signatureDate:val('sigDate')},
+    language:LANG
+  };
+}
+function readAttachment(f){
+  return new Promise(function(resolve){
+    var r=new FileReader();
+    r.onload=function(){
+      var s=String(r.result||'');
+      var i=s.indexOf(',');
+      resolve({name:f.name,mimeType:f.type||'application/octet-stream',dataBase64:i>=0?s.slice(i+1):s});
+    };
+    r.onerror=function(){resolve({name:f.name,mimeType:f.type||'application/octet-stream',dataBase64:''})};
+    r.readAsDataURL(f);
+  });
+}
+function collectAttachments(){
+  var all=[];
+  ['siteplan','deed','invoice','plans','storm'].forEach(function(k){files[k].forEach(function(f){all.push(f)})});
+  return Promise.all(all.map(readAttachment));
+}
 $('submitBtn').addEventListener('click',function(){
+  if(sending) return;
   var sstop=shedLiveStop(); if(sstop){var sso=(LANG==='es'&&STOPS_ES[sstop.id])?STOPS_ES[sstop.id]:sstop; showStop(sso.t,sso.b);return}
   var checks=fullCheck();
   if(checks.length){renderReview();showErrors(['Your packet is not complete yet — use the "Fix it" buttons above to finish the missing items.'],[]);return}
-  buildPacket();
-  submitted=true;
-  document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active')});
-  $('progressBox').style.display='none';
-  $('successScreen').classList.add('show');
-  window.scrollTo({top:0,behavior:'smooth'});
+  var btn=$('submitBtn');
+  var origLabel=tx('Submit packet');
+  sending=true;
+  btn.disabled=true;
+  btn.textContent=tx('Sending…');
+  hideErrors();
+  collectAttachments().then(function(attachments){
+    var payload={
+      received_at:new Date().toISOString(),
+      applicant_name:val('ownerName'),
+      applicant_phone:val('ownerPhone'),
+      job_address:val('jobAddr'),
+      job_kind:{'new':'Building something new','addition':'Addition / remodel','accessory':'Accessory / storage','roof':'Roof work only','trade':'Trade work only','home':'Placing a home on a lot','misc':'Other'}[jobKind()]||jobKind(),
+      trades:tradesInvolved().map(function(t){return TRADE_LABEL[t]}),
+      est_cost:val('cost'),
+      sq_ft:needsSqft()?val('sqft'):'',
+      packet:collectPacket(),
+      attachments:attachments
+    };
+    return fetch(RECEIVER_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+  }).then(function(res){return res.json()}).then(function(data){
+    if(!data||data.ok!==true) throw new Error('Receiver did not confirm');
+    buildPacket();
+    submitted=true;
+    document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active')});
+    $('progressBox').style.display='none';
+    $('successScreen').classList.add('show');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }).catch(function(){
+    sending=false;
+    btn.disabled=false;
+    btn.textContent=origLabel;
+    showErrors(['The packet could not be sent. Check your connection and try again, or call City Hall at 918-675-4373.'],[]);
+  });
 });
 $('previewBtn').addEventListener('click',function(){
   buildPacket();
