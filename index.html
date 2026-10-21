@@ -190,6 +190,7 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
       <li>License numbers for every trade doing work (electrical, plumbing, heat/air, roofing)</li>
       <li>Photos or files of your plans, if you have them — you can also draw your site plan right in the form</li>
       <li>If you are placing a home on a lot: the year of the home, your deed or signed purchase paperwork, and the home invoice</li>
+      <li>If you are building a fence: the height and material for each part of the fence, and a site plan or property survey showing your property lines</li>
     </ul>
     <div class="notice blue" style="margin-bottom:0"><strong>How long does approval take?</strong> Please allow 5 business days for residential permits and 14–28 business days for commercial permits. Call <a href="tel:9186754373">918-675-4373</a> for inspections. An incomplete application can delay issuance — this form will not let you submit an incomplete one.</div>
   </div>
@@ -216,6 +217,7 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
           <label class="choice"><input type="radio" name="jobKind" value="roof"><span><span class="t">Roof work only</span><span class="d">Re-roofing or roof layers on an existing building.</span></span></label>
           <label class="choice"><input type="radio" name="jobKind" value="trade"><span><span class="t">Trade work only</span><span class="d">Just electrical, just plumbing, or just heat/air work — no building.</span></span></label>
           <label class="choice"><input type="radio" name="jobKind" value="home"><span><span class="t">Placing a home on a lot</span><span class="d">Bringing in a manufactured, modular, or tiny home to set on a lot.</span></span></label>
+          <label class="choice"><input type="radio" name="jobKind" value="fence"><span><span class="t">Fence</span><span class="d">Building a new fence or significantly replacing one. A fence permit from the Community Development office is required before work starts.</span></span></label>
           <label class="choice"><input type="radio" name="jobKind" value="misc"><span><span class="t">Something else</span><span class="d">Any other construction or improvement.</span></span></label>
         </div>
         <div class="err-text">Please pick the one that best matches your job.</div>
@@ -288,6 +290,97 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
         </div>
       </div>
 
+      <!-- fence branch (Ordinance No. 2026-03, Secs. 8-141–8-147) -->
+      <div id="fenceBranch" style="display:none">
+        <div class="notice gold"><strong>Fences need a permit first.</strong> Building a new fence, or significantly replacing an existing one, requires a fence permit from the Community Development office before work starts (Ordinance No. 2026-03, City Code Secs. 8-141–8-147). Answer the fence questions below — the office reviews your signed packet, your site plan or survey, and your fence height and materials.</div>
+
+        <div class="field" id="f-fenceProp">
+          <label class="lab">Is the fence property residential or commercial / industrial? <button type="button" class="helpbtn" data-help="fenceprop" aria-label="Help: fence property type">?</button></label>
+          <div class="choice-row">
+            <label class="pill"><input type="radio" name="fenceProp" value="Residential"> Residential</label>
+            <label class="pill"><input type="radio" name="fenceProp" value="Commercial"> Commercial / Industrial</label>
+          </div>
+          <div class="err-text">Please pick the property type.</div>
+        </div>
+
+        <div class="field" id="f-fenceLocs">
+          <label class="lab">Where will the fence go? (check all that apply) <button type="button" class="helpbtn" data-help="fenceloc" aria-label="Help: where the fence goes">?</button></label>
+          <div class="choice-row">
+            <label class="pill"><input type="checkbox" name="fenceLoc" value="front"> Front yard</label>
+            <label class="pill"><input type="checkbox" name="fenceLoc" value="side"> Side yard</label>
+            <label class="pill"><input type="checkbox" name="fenceLoc" value="rear"> Rear yard</label>
+          </div>
+          <div class="err-text">Please check at least one location.</div>
+        </div>
+
+        <div class="field" id="f-fenceH-front" style="display:none">
+          <label class="lab">Front yard fence height (feet) <button type="button" class="helpbtn" data-help="fenceheight" aria-label="Help: fence height">?</button></label>
+          <input type="number" id="fenceHFront" min="0.5" max="30" step="0.5" inputmode="decimal" placeholder="e.g. 4">
+          <p class="hint">A residential front-yard fence may be up to 4 feet tall. A commercial / industrial fence may be up to 8 feet tall.</p>
+          <div class="err-text">Please enter the front yard fence height in feet.</div>
+        </div>
+        <div class="field" id="f-fenceH-side" style="display:none">
+          <label class="lab">Side yard fence height (feet) <button type="button" class="helpbtn" data-help="fenceheight" aria-label="Help: fence height">?</button></label>
+          <input type="number" id="fenceHSide" min="0.5" max="30" step="0.5" inputmode="decimal" placeholder="e.g. 6">
+          <p class="hint">Side-yard fences may be up to 8 feet tall.</p>
+          <div class="err-text">Please enter the side yard fence height in feet.</div>
+        </div>
+        <div class="field" id="f-fenceH-rear" style="display:none">
+          <label class="lab">Rear yard fence height (feet) <button type="button" class="helpbtn" data-help="fenceheight" aria-label="Help: fence height">?</button></label>
+          <input type="number" id="fenceHRear" min="0.5" max="30" step="0.5" inputmode="decimal" placeholder="e.g. 6">
+          <p class="hint">Rear-yard fences may be up to 8 feet tall.</p>
+          <div class="err-text">Please enter the rear yard fence height in feet.</div>
+        </div>
+
+        <div class="field" id="f-fenceMat">
+          <label class="lab">What will the fence be made of? (check all that apply) <button type="button" class="helpbtn" data-help="fencemat" aria-label="Help: fence materials">?</button></label>
+          <div class="choice-row">
+            <label class="pill"><input type="checkbox" name="fenceMat" value="wood"> Wood</label>
+            <label class="pill"><input type="checkbox" name="fenceMat" value="chainlink"> Chain link</label>
+            <label class="pill"><input type="checkbox" name="fenceMat" value="vinyl"> Vinyl</label>
+            <label class="pill"><input type="checkbox" name="fenceMat" value="metal"> Metal</label>
+            <label class="pill"><input type="checkbox" name="fenceMat" value="other"> Other</label>
+          </div>
+          <div class="err-text">Please pick the fence material(s).</div>
+        </div>
+        <div class="field" id="f-fenceMatOther" style="display:none">
+          <label class="lab">Other material — please describe</label>
+          <input type="text" id="fenceMatOther" placeholder="Describe the other material">
+          <div class="err-text">Please describe the other material.</div>
+        </div>
+
+        <div class="field" id="f-fenceTriangle">
+          <label class="lab">Will any part of the fence sit inside a corner sight-visibility triangle? <button type="button" class="helpbtn" data-help="fencetriangle" aria-label="Help: sight-visibility triangle">?</button></label>
+          <p class="hint">At a street corner, or where a driveway meets the street, there is a triangular area that must stay clear so drivers can see around the corner. A fence inside that triangle may not be taller than 3 feet.</p>
+          <div class="choice-row">
+            <label class="pill"><input type="radio" name="fenceTriangle" value="yes"> Yes</label>
+            <label class="pill"><input type="radio" name="fenceTriangle" value="no"> No</label>
+          </div>
+          <div class="err-text">Please answer yes or no.</div>
+        </div>
+
+        <div class="field" id="f-fencePool">
+          <label class="lab">Is this fence a barrier around a swimming pool? <button type="button" class="helpbtn" data-help="fencepool" aria-label="Help: pool barrier fence">?</button></label>
+          <div class="choice-row">
+            <label class="pill"><input type="radio" name="fencePool" value="yes"> Yes</label>
+            <label class="pill"><input type="radio" name="fencePool" value="no"> No</label>
+          </div>
+          <div class="err-text">Please answer yes or no.</div>
+        </div>
+
+        <div id="fencePoolAckBox" style="display:none">
+          <div class="field" id="f-fencePoolAck">
+            <label class="choice" style="align-items:flex-start"><input type="checkbox" id="fencePoolAck"><span><span class="t" style="font-weight:500;font-size:14.5px">Pool gates: every gate in this fence will self-close and self-latch.</span></span></label>
+            <div class="err-text">Please check this box — pool fence gates must self-close and self-latch.</div>
+          </div>
+        </div>
+
+        <div class="field" id="f-fenceLineAck">
+          <label class="choice" style="align-items:flex-start"><input type="checkbox" id="fenceLineAck"><span><span class="t" style="font-weight:500;font-size:14.5px">My fence will be built entirely inside my own property. It will not sit on or over the property line, and it will not be in a street right-of-way.</span></span></label>
+          <div class="err-text">Please check this box — a fence may not be built on the property line or in a street right-of-way.</div>
+        </div>
+      </div>
+
       <!-- shed / cabin occupancy branch -->
       <div id="shedBranch" style="display:none">
         <div class="field" id="f-shedLive">
@@ -337,6 +430,7 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
     <div class="card">
       <h2>About the job</h2>
       <p class="lede">Packet items 3, 4, 6, 7, and 8.</p>
+      <div class="notice blue" id="fenceJobNote" style="display:none"><strong>Fence packet:</strong> Square feet and licensed trades do not apply to a fence, so they are not asked here. Give the job address, a short description of the fence work, and the estimated cost. Your fence answers from the first step carry into the packet.</div>
 
       <div class="field" id="f-jobAddr"><label class="lab">3. Job location address <button type="button" class="helpbtn" data-help="jobaddr" aria-label="Help: job address">?</button></label>
         <input type="text" id="jobAddr" placeholder="Street address in Commerce where the work will happen"><div class="err-text">Please enter the address where the work will happen. Include the direction — N, S, E, or W — if the street has one.</div></div>
@@ -426,12 +520,16 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
       <h2>Site plan — Attachment A</h2>
       <p class="lede">Packet item 5. Draw your lot and where the work goes, or attach a plan/photo you already have. One or the other is required — both is even better.</p>
 
-      <div class="notice gold"><strong>The 10-foot rule:</strong> All structures must have 10′ separation — at least 10 feet between your new construction and other structures. Show the measurements from the new construction to your property lines on the drawing.</div>
+      <div class="notice gold" id="plansSepNotice"><strong>The 10-foot rule:</strong> All structures must have 10′ separation — at least 10 feet between your new construction and other structures. Show the measurements from the new construction to your property lines on the drawing.</div>
+
+      <div id="fencePlansBox" style="display:none">
+        <div class="notice gold"><strong>Fences: a site plan or a survey is required.</strong> City Code Sec. 8-143 requires the fence application to include a site plan or property survey showing your property lines, any easements, the structures already on the lot, and the proposed fence line — along with the fence height and materials (already collected on the first step) and the permit fee. Draw the site plan on the grid below, or attach a site plan or survey file. At least one of the two is required.</div>
+      </div>
 
       <div class="field" id="f-materials"><label class="lab">Materials used in construction <button type="button" class="helpbtn" data-help="materials" aria-label="Help: materials">?</button></label>
         <input type="text" id="materials" placeholder="e.g. Metal siding, wood frame, concrete slab"><div class="err-text">Please list the main materials.</div></div>
 
-      <div class="grid2">
+      <div class="grid2" id="plansBuildFields">
         <div class="field" id="f-foundation"><label class="lab">Footing / Foundation <button type="button" class="helpbtn" data-help="foundation" aria-label="Help: foundation">?</button></label>
           <div class="choice-row"><label class="pill"><input type="radio" name="foundation" value="Slab"> Slab</label><label class="pill"><input type="radio" name="foundation" value="Crawl Space"> Crawl Space</label></div>
           <div class="err-text">Please pick one.</div></div>
@@ -450,6 +548,7 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
       <div class="field" id="f-drawing">
         <label class="lab">Draw your plan <button type="button" class="helpbtn" data-help="drawing" aria-label="Help: drawing the plan">?</button></label>
         <p class="hint">Draw with your finger or mouse: your lot lines, the street, existing buildings and utilities, and the new construction — with measurements to the property lines.</p>
+        <p class="hint" id="fenceDrawHint" style="display:none">For a fence, draw: your property lines, any easements, the street, the structures already on the lot, and the line where the fence will go.</p>
         <canvas id="pad" width="680" height="440"></canvas>
         <div style="margin-top:8px;display:flex;gap:8px"><button type="button" class="btn ghost small" id="clearPad">Clear drawing</button><span id="drawStatus" style="align-self:center;font-size:13.5px;color:var(--muted)">Nothing drawn yet</span></div>
         <div class="err-text">Please draw your plan above, or attach a site plan file below.</div>
@@ -1050,7 +1149,14 @@ var HELP = {
   docs:{t:"Construction documents, plans & specs",b:"<p>These are the detailed drawings and specifications for the job — blueprints, engineered plans, manufacturer spec sheets, or a builder's drawings. If your builder gave you plans, answer Yes and attach them. Simple jobs (a small shed, a carport kit) may not have any — answer No.</p>"},
   grading:{t:"Grading more than 1 acre — and storm water",b:"<p><strong>Grading</strong> means moving or leveling dirt. One acre is 43,560 square feet — roughly a football field without the end zones; most house lots are far smaller. If your dirt work stays under 1 acre, answer No.</p><p>If it's more than 1 acre, city code requires a <strong>Storm Water Control plan</strong> — a plan for keeping dirt and runoff from washing into streets and neighbors' property — submitted to the City Engineer. Attach it here.</p>"},
   questions:{t:"Do you have questions?",b:"<p>If you answer Yes, the office will contact you at the phone number you gave to discuss your questions before or during review. You can also write the question in the box that appears — that helps the office come prepared.</p>"},
-  signature:{t:"Signing by typing your name",b:"<p>Because this packet is submitted online, typing your full name in the signature box counts as your signature on the two agreements — the same as signing the paper packet. Your typed name and the date print on the signature lines of the packet the office receives. The office may still ask you to wet-sign when you pick up the issued permit.</p>"}
+  signature:{t:"Signing by typing your name",b:"<p>Because this packet is submitted online, typing your full name in the signature box counts as your signature on the two agreements — the same as signing the paper packet. Your typed name and the date print on the signature lines of the packet the office receives. The office may still ask you to wet-sign when you pick up the issued permit.</p>"},
+  fenceprop:{t:"Residential or commercial / industrial?",b:"<p>Pick the kind of property the fence will be on. It changes the height limit: on a <strong>residential</strong> lot a front-yard fence may be up to 4 feet and side/rear fences up to 8 feet. On <strong>commercial / industrial</strong> property a fence may be up to 8 feet.</p>"},
+  fenceloc:{t:"Where will the fence go?",b:"<p>Check every part of the yard the fence will run through — front (between the house and the street), side, and rear. You will give the height in feet for each part you check, because the height limit depends on where the fence sits.</p>"},
+  fenceheight:{t:"Fence height limits",b:"<p>Heights are in feet, measured for the finished fence. City limits (Ordinance No. 2026-03): <strong>residential front yard — 4 feet max; residential side and rear yards — 8 feet max; commercial / industrial — 8 feet max.</strong> A fence inside a corner sight-visibility triangle may not exceed <strong>3 feet</strong>, and a pool barrier fence must be at least <strong>4 feet</strong>. A fence taller than the limit for its spot cannot be approved as submitted — call City Hall at 918-675-4373 with questions.</p>"},
+  fencemat:{t:"Fence materials",b:"<p>Check what the fence will be made of — wood, chain link, vinyl, metal, or something else. The application must describe the fence's height and materials (City Code Sec. 8-143), so list everything the fence uses.</p>"},
+  fencetriangle:{t:"What is a sight-visibility triangle?",b:"<p>At a street corner — and where a driveway meets a street or alley — there is a triangular patch of ground at the corner that has to stay open so drivers, cyclists, and people walking can see each other in time. If any part of your fence falls inside that triangle, that part may be <strong>no taller than 3 feet</strong>. A taller fence there blocks the view and can cause a wreck, so the office cannot approve it. Not sure whether your corner has one? Answer honestly and call City Hall at 918-675-4373 — the office can check your lot.</p>"},
+  fencepool:{t:"Pool barrier fences",b:"<p>A fence that goes around a swimming pool is a safety barrier: it keeps small children from reaching the water alone. It must be <strong>at least 4 feet tall</strong>, and every gate in it must <strong>self-close and self-latch</strong> — swing shut and catch on its own, every time. If your pool fence is under 4 feet, this packet cannot continue.</p>"},
+  fenceline:{t:"Stay inside your own property",b:"<p>A fence may not be built <strong>on or over a property line</strong>, and it may not sit in a <strong>street right-of-way</strong> (the strip along the street the city controls, which can extend past the pavement). Build the whole fence inside your own lot. If you are not sure exactly where your line is, a property survey shows it — and a survey can be attached later in this packet.</p>"}
 };
 var modal=document.getElementById('helpModal');
 document.querySelectorAll('.helpbtn').forEach(function(b){
@@ -1356,7 +1462,67 @@ var ES={
 "Accessory / storage":"Edificio accesorio / almacenamiento",
 "Addition / remodel":"Adición / remodelación",
 "Addition/Remodel":"Adición / Remodelación",
-"Other":"Otro"
+"Other":"Otro",
+"If you are building a fence: the height and material for each part of the fence, and a site plan or property survey showing your property lines":"Si va a construir una cerca: la altura y el material de cada parte de la cerca, y un plano del sitio o un levantamiento (survey) de la propiedad que muestre los límites de su propiedad",
+"Fence":"Cerca",
+"Building a new fence or significantly replacing one. A fence permit from the Community Development office is required before work starts.":"Construir una cerca nueva o reemplazar significativamente una existente. Se requiere un permiso de cerca de la oficina de Desarrollo Comunitario (Community Development) antes de comenzar el trabajo.",
+"Fences need a permit first.":"Las cercas necesitan primero un permiso.",
+"Building a new fence, or significantly replacing an existing one, requires a fence permit from the Community Development office before work starts (Ordinance No. 2026-03, City Code Secs. 8-141–8-147). Answer the fence questions below — the office reviews your signed packet, your site plan or survey, and your fence height and materials.":"Construir una cerca nueva, o reemplazar significativamente una existente, requiere un permiso de cerca de la oficina de Desarrollo Comunitario (Community Development) antes de comenzar el trabajo (Ordenanza N.º 2026-03, Código de la Ciudad, Secs. 8-141–8-147). Responda las preguntas sobre la cerca a continuación — la oficina revisa su paquete firmado, su plano del sitio o levantamiento (survey), y la altura y los materiales de su cerca.",
+"Is the fence property residential or commercial / industrial?":"¿La propiedad de la cerca es residencial o comercial / industrial?",
+"Commercial / Industrial":"Comercial / Industrial",
+"Where will the fence go? (check all that apply)":"¿Dónde irá la cerca? (marque todos los que apliquen)",
+"Front yard":"Patio delantero",
+"Side yard":"Patio lateral",
+"Rear yard":"Patio trasero",
+"Please check at least one location.":"Marque al menos una ubicación.",
+"Front yard fence height (feet)":"Altura de la cerca del patio delantero (pies)",
+"A residential front-yard fence may be up to 4 feet tall. A commercial / industrial fence may be up to 8 feet tall.":"Una cerca residencial de patio delantero puede medir hasta 4 pies de altura. Una cerca comercial / industrial puede medir hasta 8 pies de altura.",
+"Please enter the front yard fence height in feet.":"Ingrese la altura de la cerca del patio delantero en pies.",
+"Side yard fence height (feet)":"Altura de la cerca del patio lateral (pies)",
+"Side-yard fences may be up to 8 feet tall.":"Las cercas de patio lateral pueden medir hasta 8 pies de altura.",
+"Please enter the side yard fence height in feet.":"Ingrese la altura de la cerca del patio lateral en pies.",
+"Rear yard fence height (feet)":"Altura de la cerca del patio trasero (pies)",
+"Rear-yard fences may be up to 8 feet tall.":"Las cercas de patio trasero pueden medir hasta 8 pies de altura.",
+"Please enter the rear yard fence height in feet.":"Ingrese la altura de la cerca del patio trasero en pies.",
+"What will the fence be made of? (check all that apply)":"¿De qué estará hecha la cerca? (marque todos los que apliquen)",
+"Wood":"Madera",
+"Chain link":"Malla ciclónica (chain link)",
+"Vinyl":"Vinilo",
+"Please pick the fence material(s).":"Elija el/los material(es) de la cerca.",
+"Other material — please describe":"Otro material — descríbalo",
+"Describe the other material":"Describa el otro material",
+"Please describe the other material.":"Describa el otro material.",
+"Will any part of the fence sit inside a corner sight-visibility triangle?":"¿Alguna parte de la cerca estará dentro de un triángulo de visibilidad de esquina?",
+"At a street corner, or where a driveway meets the street, there is a triangular area that must stay clear so drivers can see around the corner. A fence inside that triangle may not be taller than 3 feet.":"En una esquina de calle, o donde una entrada de auto se une a la calle, hay un área triangular que debe mantenerse despejada para que los conductores puedan ver alrededor de la esquina. Una cerca dentro de ese triángulo no puede medir más de 3 pies.",
+"Is this fence a barrier around a swimming pool?":"¿Esta cerca es una barrera alrededor de una piscina?",
+"Pool gates: every gate in this fence will self-close and self-latch.":"Puertas de la piscina: cada puerta de esta cerca se cerrará y se asegurará por sí sola (self-close y self-latch).",
+"Please check this box — pool fence gates must self-close and self-latch.":"Marque esta casilla — las puertas de la cerca de una piscina deben cerrarse y asegurarse por sí solas.",
+"My fence will be built entirely inside my own property. It will not sit on or over the property line, and it will not be in a street right-of-way.":"Mi cerca se construirá por completo dentro de mi propia propiedad. No estará sobre el límite de la propiedad ni lo cruzará, y no estará en un derecho de vía de la calle (right-of-way).",
+"Please check this box — a fence may not be built on the property line or in a street right-of-way.":"Marque esta casilla — una cerca no puede construirse sobre el límite de la propiedad ni en un derecho de vía de la calle.",
+"Fence packet:":"Paquete de cerca:",
+"Square feet and licensed trades do not apply to a fence, so they are not asked here. Give the job address, a short description of the fence work, and the estimated cost. Your fence answers from the first step carry into the packet.":"Los pies cuadrados y los oficios con licencia no aplican a una cerca, así que no se preguntan aquí. Dé la dirección del trabajo, una descripción breve del trabajo de la cerca y el costo estimado. Sus respuestas sobre la cerca del primer paso se incluyen en el paquete.",
+"Fences: a site plan or a survey is required.":"Cercas: se requiere un plano del sitio o un levantamiento (survey).",
+"City Code Sec. 8-143 requires the fence application to include a site plan or property survey showing your property lines, any easements, the structures already on the lot, and the proposed fence line — along with the fence height and materials (already collected on the first step) and the permit fee. Draw the site plan on the grid below, or attach a site plan or survey file. At least one of the two is required.":"El Código de la Ciudad, Sec. 8-143, requiere que la solicitud de cerca incluya un plano del sitio o un levantamiento (survey) de la propiedad que muestre los límites de su propiedad, cualquier servidumbre (easement), las estructuras que ya están en el lote y la línea propuesta de la cerca — junto con la altura y los materiales de la cerca (ya recopilados en el primer paso) y la tarifa del permiso. Dibuje el plano del sitio en la cuadrícula de abajo, o adjunte un archivo de plano del sitio o de levantamiento. Se requiere al menos uno de los dos.",
+"For a fence, draw: your property lines, any easements, the street, the structures already on the lot, and the line where the fence will go.":"Para una cerca, dibuje: los límites de su propiedad, cualquier servidumbre (easement), la calle, las estructuras que ya están en el lote y la línea donde irá la cerca.",
+"Pick whether the fence property is Residential or Commercial / Industrial.":"Elija si la propiedad de la cerca es Residencial o Comercial / Industrial.",
+"Check where the fence will go (front, side, and/or rear yard).":"Marque dónde irá la cerca (patio delantero, lateral y/o trasero).",
+"Enter the fence height in feet for each location you checked.":"Ingrese la altura de la cerca en pies para cada ubicación que marcó.",
+"Pick what the fence will be made of.":"Elija de qué estará hecha la cerca.",
+"Describe the other fence material.":"Describa el otro material de la cerca.",
+"Answer whether any part of the fence is in a corner sight-visibility triangle.":"Responda si alguna parte de la cerca está en un triángulo de visibilidad de esquina.",
+"Answer whether the fence is a swimming pool barrier.":"Responda si la cerca es una barrera para piscina.",
+"Check the pool gate box — pool fence gates must self-close and self-latch.":"Marque la casilla de las puertas de la piscina — deben cerrarse y asegurarse por sí solas.",
+"Check the property-line box — the fence must sit inside your own property, not on the line or in a right-of-way.":"Marque la casilla del límite de propiedad — la cerca debe estar dentro de su propia propiedad, no sobre el límite ni en un derecho de vía.",
+"Draw the fence site plan, or attach a site plan or property survey.":"Dibuje el plano del sitio de la cerca, o adjunte un plano del sitio o un levantamiento (survey) de la propiedad.",
+"Fence property type":"Tipo de propiedad de la cerca",
+"Front yard fence height":"Altura de la cerca del patio delantero",
+"Side yard fence height":"Altura de la cerca del patio lateral",
+"Rear yard fence height":"Altura de la cerca del patio trasero",
+"Fence materials":"Materiales de la cerca",
+"In a sight-visibility triangle":"En un triángulo de visibilidad",
+"Pool barrier fence":"Cerca barrera de piscina",
+"Site plan / survey":"Plano del sitio / levantamiento",
+"Please pick the property type.":"Elija el tipo de propiedad."
 };
 var REV={}; for(var _k in ES){ if(!(ES[_k] in REV)) REV[ES[_k]]=_k; }
 function tx(s){return LANG==='es'?(ES[s]||s):s}
@@ -1367,6 +1533,9 @@ var LIC_HELP={
 en:{t:'Why license numbers are required',b:'<p>The paper packet states it plainly: <strong>a permit will not be issued without license numbers (if required).</strong></p><p>Electrical, plumbing, and heat/air work in Commerce must be done by contractors licensed with the State of Oklahoma and the City of Commerce. The number proves the license is real and current — the office verifies it on the staff review page.</p>'},
 es:{t:'Por qué se requieren los números de licencia',b:'<p>El paquete en papel lo dice claramente: <strong>no se emitirá un permiso sin los números de licencia (si se requieren).</strong></p><p>El trabajo de electricidad, plomería y calefacción/aire en Commerce debe hacerlo contratistas con licencia del Estado de Oklahoma y de la Ciudad de Commerce. El número comprueba que la licencia es real y está vigente — la oficina lo verifica en la página de revisión del personal.</p>'}};
 var STOPS_ES={
+fenceheight:{t:'Esa cerca es más alta que el límite para su ubicación',b:'La Ordenanza N.º 2026-03 fija la altura máxima de una cerca según el tipo de propiedad y dónde se ubica en el lote: en un lote <strong>residencial</strong>, una cerca de patio delantero puede medir hasta <strong>4 pies</strong> y las cercas de patio lateral y trasero hasta <strong>8 pies</strong>; en una propiedad <strong>comercial / industrial</strong>, una cerca puede medir hasta <strong>8 pies</strong>. La altura que ingresó supera el límite para esa ubicación, por lo que la oficina <strong>no puede aprobar esta cerca tal como se presenta</strong>.<br><br>Para continuar: empiece de nuevo e ingrese una altura que esté dentro del límite para esa ubicación. Si cree que su lote es diferente, llame primero al Ayuntamiento al <a href="tel:9186754373">918-675-4373</a> antes de presentar cualquier paquete.'},
+fencetri:{t:'Una cerca en un triángulo de visibilidad no puede superar los 3 pies',b:'Parte de su cerca está dentro de un <strong>triángulo de visibilidad</strong> de esquina — el área despejada en una esquina de calle o de entrada de auto que permite a los conductores verse entre sí. Una cerca allí puede medir <strong>como máximo 3 pies</strong>, y la altura que ingresó supera eso. Una cerca más alta en esa esquina bloquea la vista de los conductores y puede causar un accidente, por lo que la oficina <strong>no puede aprobarla tal como se presenta</strong>.<br><br>Para continuar: empiece de nuevo — mantenga la parte de la cerca dentro del triángulo en 3 pies o menos, o mueva la línea de la cerca fuera del triángulo. ¿Tiene preguntas sobre dónde está el triángulo en su lote? Llame al Ayuntamiento al <a href="tel:9186754373">918-675-4373</a>.'},
+fencepool:{t:'Una cerca barrera de piscina debe medir al menos 4 pies',b:'Una cerca que rodea una piscina es una <strong>barrera de seguridad</strong> — su función es evitar que los niños pequeños lleguen solos al agua. Debe medir <strong>al menos 4 pies de altura</strong> en todo su recorrido, y cada puerta debe cerrarse y asegurarse por sí sola. Una de las alturas que ingresó es menor de 4 pies, por lo que esta cerca <strong>no puede aprobarse tal como se presenta</strong>.<br><br>Para continuar: empiece de nuevo e ingrese una altura de al menos 4 pies para cada parte de la cerca de la piscina. ¿Tiene preguntas? Llame al Ayuntamiento al <a href="tel:9186754373">918-675-4373</a>.'},
 shedlive:{t:'Un cobertizo o una cabaña portátil no se puede habitar',b:'Un cobertizo, edificio portátil o cabaña portátil — como una cabaña Derksen — se construye y se vende como <strong>edificio de almacenamiento o accesorio</strong>, no como casa. <strong>No se puede vivir ni dormir en él</strong>, y la ciudad no puede emitir un permiso para usarlo como vivienda — ni a tiempo completo, ni a tiempo parcial, ni como cuarto de huéspedes o renta, ni «solo temporalmente», sin importar cómo esté terminado por dentro.<br><br>Si nadie vivirá ni dormirá en él y es realmente solo para almacenamiento o uso accesorio, empiece de nuevo y responda «No» a esa pregunta. Si lo que necesita es un espacio para vivir, comuníquese primero con el Ayuntamiento al <a href="tel:9186754373">918-675-4373</a> — le pueden decir qué tipos de viviendas pueden autorizarse en su lote.'},
 portable:{t:'Un edificio portátil no puede autorizarse como vivienda',b:'Un edificio portátil o tipo cabaña/cobertizo — como una cabaña Derksen — se construye y se vende como <strong>edificio de almacenamiento</strong>, no como casa. No cumple las reglas para ser una vivienda, por lo que la ciudad no puede emitir un permiso de construcción para que alguien viva en uno, aunque esté terminado por dentro.<br><br>Si solo lo necesita para almacenamiento, empiece de nuevo y elija «Edificio accesorio, cochera o almacenamiento». Si el objetivo es un espacio para vivir, hable primero con el Ayuntamiento sobre qué tipos de viviendas pueden autorizarse en su lote.'},
 rental:{t:'Las viviendas colocadas deben ser habitadas por el dueño',b:'Para una vivienda manufacturada, modular o pequeña colocada en un lote, el código de la ciudad espera que el dueño viva en la vivienda. Una vivienda colocada para <strong>rentarse</strong>, o para que viva otra persona, no cumple ese requisito — por lo que este paquete en línea debe detenerse aquí.<br><br>Eso no siempre significa «no» — significa que esto necesita una conversación con el Ayuntamiento antes de presentar cualquier paquete, para que reciba la respuesta correcta por escrito primero.'},
@@ -1401,7 +1570,14 @@ var HELP_ES = {
   docs:{t:"Documentos de construcción, planos y especificaciones",b:"<p>Son los dibujos y especificaciones detallados del trabajo — planos, planos de ingeniería, hojas de especificaciones del fabricante o dibujos del constructor. Si su constructor le dio planos, responda Sí y adjúntelos. Los trabajos sencillos (un cobertizo pequeño, un kit de cochera) pueden no tener ninguno — responda No.</p>"},
   grading:{t:"Nivelación de más de 1 acre — y aguas pluviales",b:"<p><strong>Nivelar</strong> significa mover o emparejar tierra. Un acre son 43,560 pies cuadrados — aproximadamente un campo de fútbol americano sin las zonas de anotación; la mayoría de los lotes de casas son mucho más pequeños. Si su trabajo de tierra se mantiene por debajo de 1 acre, responda No.</p><p>Si es más de 1 acre, el código de la ciudad requiere un <strong>plan de Control de Aguas Pluviales</strong> — un plan para evitar que la tierra y el escurrimiento lleguen a las calles y a las propiedades de los vecinos — presentado al Ingeniero de la Ciudad. Adjúntelo aquí.</p>"},
   questions:{t:"¿Tiene preguntas?",b:"<p>Si responde Sí, la oficina se comunicará con usted al número de teléfono que dio para hablar de sus preguntas antes o durante la revisión. También puede escribir la pregunta en el cuadro que aparece — eso ayuda a la oficina a venir preparada.</p>"},
-  signature:{t:"Firmar escribiendo su nombre",b:"<p>Como este paquete se envía en línea, escribir su nombre completo en el cuadro de firma cuenta como su firma en los dos acuerdos — igual que firmar el paquete en papel. Su nombre escrito y la fecha se imprimen en las líneas de firma del paquete que recibe la oficina. Es posible que la oficina aún le pida firmar en persona cuando recoja el permiso emitido.</p>"}
+  signature:{t:"Firmar escribiendo su nombre",b:"<p>Como este paquete se envía en línea, escribir su nombre completo en el cuadro de firma cuenta como su firma en los dos acuerdos — igual que firmar el paquete en papel. Su nombre escrito y la fecha se imprimen en las líneas de firma del paquete que recibe la oficina. Es posible que la oficina aún le pida firmar en persona cuando recoja el permiso emitido.</p>"},
+  fenceprop:{t:"¿Residencial o comercial / industrial?",b:"<p>Elija el tipo de propiedad donde estará la cerca. Esto cambia el límite de altura: en un lote <strong>residencial</strong>, una cerca de patio delantero puede medir hasta 4 pies y las cercas laterales y traseras hasta 8 pies. En una propiedad <strong>comercial / industrial</strong>, una cerca puede medir hasta 8 pies.</p>"},
+  fenceloc:{t:"¿Dónde irá la cerca?",b:"<p>Marque cada parte del patio por donde pasará la cerca — delantera (entre la casa y la calle), lateral y trasera. Dará la altura en pies de cada parte que marque, porque el límite de altura depende de dónde esté la cerca.</p>"},
+  fenceheight:{t:"Límites de altura de cercas",b:"<p>Las alturas son en pies, medidas para la cerca terminada. Límites de la ciudad (Ordenanza N.º 2026-03): <strong>patio delantero residencial — máximo 4 pies; patios lateral y trasero residenciales — máximo 8 pies; comercial / industrial — máximo 8 pies.</strong> Una cerca dentro de un triángulo de visibilidad de esquina no puede superar los <strong>3 pies</strong>, y una cerca barrera de piscina debe medir al menos <strong>4 pies</strong>. Una cerca más alta que el límite para su lugar no puede aprobarse tal como se presenta — llame al Ayuntamiento al 918-675-4373 si tiene preguntas.</p>"},
+  fencemat:{t:"Materiales de la cerca",b:"<p>Marque de qué estará hecha la cerca — madera, malla ciclónica (chain link), vinilo, metal u otro material. La solicitud debe describir la altura y los materiales de la cerca (Código de la Ciudad, Sec. 8-143), así que indique todo lo que usará la cerca.</p>"},
+  fencetriangle:{t:"¿Qué es un triángulo de visibilidad?",b:"<p>En una esquina de calle — y donde una entrada de auto se une a una calle o callejón — hay una porción triangular de terreno en la esquina que debe mantenerse despejada para que conductores, ciclistas y peatones puedan verse a tiempo. Si alguna parte de su cerca cae dentro de ese triángulo, esa parte puede medir <strong>como máximo 3 pies</strong>. Una cerca más alta allí bloquea la vista y puede causar un accidente, por lo que la oficina no puede aprobarla. ¿No está seguro si su esquina tiene uno? Responda con honestidad y llame al Ayuntamiento al 918-675-4373 — la oficina puede revisar su lote.</p>"},
+  fencepool:{t:"Cercas barrera de piscina",b:"<p>Una cerca que rodea una piscina es una barrera de seguridad: evita que los niños pequeños lleguen solos al agua. Debe medir <strong>al menos 4 pies de altura</strong>, y cada puerta debe <strong>cerrarse y asegurarse por sí sola (self-close y self-latch)</strong> — cerrarse de golpe y engancharse sola, siempre. Si su cerca de piscina mide menos de 4 pies, este paquete no puede continuar.</p>"},
+  fenceline:{t:"Manténgase dentro de su propia propiedad",b:"<p>Una cerca no puede construirse <strong>sobre el límite de la propiedad ni cruzarlo</strong>, y no puede estar en un <strong>derecho de vía de la calle (right-of-way)</strong> (la franja a lo largo de la calle que controla la ciudad, que puede extenderse más allá del pavimento). Construya toda la cerca dentro de su propio lote. Si no está seguro de dónde está exactamente su límite, un levantamiento topográfico (survey) lo muestra — y puede adjuntar uno más adelante en este paquete.</p>"}
 };
 function applyLang(){
   document.documentElement.lang=LANG;
@@ -1449,8 +1625,56 @@ function checkedVals(name){var out=[];document.querySelectorAll('input[name="'+n
 function jobKind(){return radioVal('jobKind')}
 function homeKind(){return radioVal('homeKind')}
 
+/* ================= FENCE (Ord. 2026-03, Secs. 8-141–8-147) ================= */
+var FENCE_LOC_LABEL={front:'Front yard',side:'Side yard',rear:'Rear yard'};
+var FENCE_MAT_LABEL={wood:'Wood',chainlink:'Chain link',vinyl:'Vinyl',metal:'Metal',other:'Other'};
+function fenceLocs(){return checkedVals('fenceLoc')}
+function fenceHeight(loc){var id={front:'fenceHFront',side:'fenceHSide',rear:'fenceHRear'}[loc];var v=id?val(id):'';return v===''?null:parseFloat(v)}
+function fenceLimit(loc){if(radioVal('fenceProp')==='Commercial')return 8;return loc==='front'?4:8}
+function fenceMaterialsText(){
+  var parts=checkedVals('fenceMat').map(function(m){return tx(FENCE_MAT_LABEL[m]||m)});
+  if(checkedVals('fenceMat').indexOf('other')>=0&&val('fenceMatOther'))parts.push(val('fenceMatOther'));
+  return parts.join(', ');
+}
+function fenceData(){
+  var heights={}; fenceLocs().forEach(function(l){heights[l]=fenceHeight(l)});
+  return {
+    propertyType:radioVal('fenceProp'),
+    locations:fenceLocs(),
+    heightsFt:heights,
+    materials:checkedVals('fenceMat'),
+    materialsOther:val('fenceMatOther'),
+    inSightVisibilityTriangle:radioVal('fenceTriangle'),
+    poolBarrier:radioVal('fencePool'),
+    poolGatesSelfCloseSelfLatch:$('fencePoolAck')?$('fencePoolAck').checked:false,
+    insideOwnPropertyAck:$('fenceLineAck')?$('fenceLineAck').checked:false,
+    sitePlanOrSurvey:hasDrawing?'Drawn in Attachment A':(files.siteplan.length?'Attached: '+fileNames('siteplan'):''),
+    ordinance:'Ordinance No. 2026-03 (City Code Secs. 8-141-8-147)'
+  };
+}
+function syncFence(){
+  var isF=jobKind()==='fence';
+  var fb=$('fenceBranch'); if(fb) fb.style.display=isF?'block':'none';
+  if(!isF) return;
+  var locs=fenceLocs();
+  ['front','side','rear'].forEach(function(loc){var w=$('f-fenceH-'+loc); if(w) w.style.display=locs.indexOf(loc)>=0?'block':'none'});
+  var mo=$('f-fenceMatOther'); if(mo) mo.style.display=checkedVals('fenceMat').indexOf('other')>=0?'block':'none';
+  var pa=$('fencePoolAckBox'); if(pa) pa.style.display=radioVal('fencePool')==='yes'?'block':'none';
+  var fp=radioVal('fenceProp');
+  if(fp){var r=document.querySelector('input[name="propType"][value="'+fp+'"]'); if(r&&!r.checked){r.checked=true;highlightChoice(r)}}
+}
+function syncPlansStep(){
+  var isF=jobKind()==='fence';
+  var sep=$('plansSepNotice'); if(sep) sep.style.display=isF?'none':'';
+  var mat=$('f-materials'); if(mat) mat.style.display=isF?'none':'';
+  var bf=$('plansBuildFields'); if(bf) bf.style.display=isF?'none':'';
+  var fb=$('fencePlansBox'); if(fb) fb.style.display=isF?'block':'none';
+  var fh=$('fenceDrawHint'); if(fh) fh.style.display=isF?'block':'none';
+}
+
 function tradesInvolved(){
   var k=jobKind();
+  if(k==='fence') return [];
   if(k==='new') return ['electrician','plumber','hvac','roofing'];
   if(k==='home') return ['electrician','plumber','hvac'];
   if(k==='roof') return ['roofing'];
@@ -1459,7 +1683,7 @@ function tradesInvolved(){
   return picks;
 }
 function needsSqft(){var k=jobKind();return ['new','addition','accessory','home','misc'].indexOf(k)>=0}
-function needsPlans(){var k=jobKind();return ['new','addition','accessory','home','misc'].indexOf(k)>=0}
+function needsPlans(){var k=jobKind();return ['new','addition','accessory','home','misc','fence'].indexOf(k)>=0}
 function needsTradesStep(){return tradesInvolved().length>0}
 function activeSteps(){
   var s=['screening','people','job'];
@@ -1512,6 +1736,17 @@ function validateStep(id){
     failIf(!k,'Pick what you are doing.',['f-jobKind'],errs,inv);
     if(shedRelevant()) failIf(!radioVal('shedOccupy'),'Answer whether anyone will live or sleep in the shed, portable building, or cabin.',['f-shedLive'],errs,inv);
     if(k==='trade') failIf(!radioVal('tradeOnly'),'Pick which trade the work is.',['f-tradeOnly'],errs,inv);
+    if(k==='fence'){
+      failIf(!radioVal('fenceProp'),'Pick whether the fence property is Residential or Commercial / Industrial.',['f-fenceProp'],errs,inv);
+      failIf(fenceLocs().length===0,'Check where the fence will go (front, side, and/or rear yard).',['f-fenceLocs'],errs,inv);
+      fenceLocs().forEach(function(loc){var h=fenceHeight(loc);failIf(h===null||!(h>0),'Enter the fence height in feet for each location you checked.',['f-fenceH-'+loc],errs,inv)});
+      failIf(checkedVals('fenceMat').length===0,'Pick what the fence will be made of.',['f-fenceMat'],errs,inv);
+      if(checkedVals('fenceMat').indexOf('other')>=0) failIf(!val('fenceMatOther'),'Describe the other fence material.',['f-fenceMatOther'],errs,inv);
+      failIf(!radioVal('fenceTriangle'),'Answer whether any part of the fence is in a corner sight-visibility triangle.',['f-fenceTriangle'],errs,inv);
+      failIf(!radioVal('fencePool'),'Answer whether the fence is a swimming pool barrier.',['f-fencePool'],errs,inv);
+      if(radioVal('fencePool')==='yes') failIf(!$('fencePoolAck').checked,'Check the pool gate box — pool fence gates must self-close and self-latch.',['f-fencePoolAck'],errs,inv);
+      failIf(!$('fenceLineAck').checked,'Check the property-line box — the fence must sit inside your own property, not on the line or in a right-of-way.',['f-fenceLineAck'],errs,inv);
+    }
     if(k==='home'){
       var hk=homeKind();
       failIf(!hk,'Pick what kind of home it is.',['f-homeKind'],errs,inv);
@@ -1535,8 +1770,8 @@ function validateStep(id){
   }
   if(id==='job'){
     failIf(!val('jobAddr'),'Enter the job location address.',['f-jobAddr'],errs,inv);
-    failIf(!radioVal('propType'),'Pick Residential, Commercial, or Industry.',['f-propType'],errs,inv);
-    failIf(checkedVals('workType').length===0,'Check at least one type of work.',['f-workTypes'],errs,inv);
+    failIf(jobKind()!=='fence'&&!radioVal('propType'),'Pick Residential, Commercial, or Industry.',['f-propType'],errs,inv);
+    failIf(jobKind()!=='fence'&&checkedVals('workType').length===0,'Check at least one type of work.',['f-workTypes'],errs,inv);
     if(jobShedApplies()) failIf(!radioVal('shedOccupyJob'),'Answer whether anyone will live or sleep in the shed, portable building, or cabin.',['f-shedLiveJob'],errs,inv);
     if(needsRoofLayers()) failIf(!val('roofLayers'),'Enter the total number of roof layers.',['f-roofLayers'],errs,inv);
     if(showTradesPick()) failIf(checkedVals('tradesPick').length===0,'Check the licensed trades in this job, or "None."',['f-tradesPick'],errs,inv);
@@ -1551,12 +1786,16 @@ function validateStep(id){
     });
   }
   if(id==='plans'){
-    failIf(!val('materials'),'List the materials used in construction.',['f-materials'],errs,inv);
-    failIf(!radioVal('foundation'),'Pick Slab or Crawl Space for the footing/foundation.',['f-foundation'],errs,inv);
-    failIf(!radioVal('studs'),'Pick the stud spacing.',['f-studs'],errs,inv);
-    failIf(!radioVal('roofType')||!radioVal('roofShape'),'Pick the roof material and whether it is flat or pitched.',['f-roofType'],errs,inv);
-    failIf(!radioVal('sanitary'),'Pick the sanitary arrangement.',['f-sanitary'],errs,inv);
-    failIf(!hasDrawing&&files.siteplan.length===0,'Draw your site plan, or attach a site plan / photo of your drawing.',['f-drawing'],errs,inv);
+    var isFencePlans=jobKind()==='fence';
+    if(!isFencePlans){
+      failIf(!val('materials'),'List the materials used in construction.',['f-materials'],errs,inv);
+      failIf(!radioVal('foundation'),'Pick Slab or Crawl Space for the footing/foundation.',['f-foundation'],errs,inv);
+      failIf(!radioVal('studs'),'Pick the stud spacing.',['f-studs'],errs,inv);
+      failIf(!radioVal('roofType')||!radioVal('roofShape'),'Pick the roof material and whether it is flat or pitched.',['f-roofType'],errs,inv);
+      failIf(!radioVal('sanitary'),'Pick the sanitary arrangement.',['f-sanitary'],errs,inv);
+    }
+    if(isFencePlans) failIf(!hasDrawing&&files.siteplan.length===0,'Draw the fence site plan, or attach a site plan or property survey.',['f-drawing'],errs,inv);
+    else failIf(!hasDrawing&&files.siteplan.length===0,'Draw your site plan, or attach a site plan / photo of your drawing.',['f-drawing'],errs,inv);
     if(jobKind()==='home'){ 
       failIf(files.deed.length===0,'Attach the deed or signed lot paperwork.',['f-deedFile'],errs,inv);
       failIf(files.invoice.length===0,'Attach the home invoice / dealer paperwork.',['f-invoiceFile'],errs,inv);
@@ -1595,8 +1834,40 @@ function shedLiveStop(){
   return null;
 }
 
+/* fence hard stops (Ord. 2026-03): height limits, sight triangle, pool barrier */
+function fenceStop(){
+  if(jobKind()!=='fence') return null;
+  var locs=fenceLocs(), i, loc, h;
+  for(i=0;i<locs.length;i++){
+    loc=locs[i]; h=fenceHeight(loc); if(h===null) continue;
+    var lim=fenceLimit(loc);
+    if(h>lim){
+      return {id:'fenceheight',t:'That fence is taller than the limit for its location',
+        b:'Ordinance No. 2026-03 caps a fence\u2019s height by property type and where it sits on the lot: on a <strong>residential</strong> lot, a front-yard fence may be up to <strong>4 feet</strong> and side- and rear-yard fences up to <strong>8 feet</strong>; on <strong>commercial / industrial</strong> property, a fence may be up to <strong>8 feet</strong>. The height you entered for the '+FENCE_LOC_LABEL[loc].toLowerCase()+' is <strong>'+h+' ft</strong> — over the <strong>'+lim+' ft</strong> limit for that spot — so the office <strong>cannot approve it as submitted</strong>.<br><br>To continue, start over and enter a height within the limit for that location. If you think your lot is different, call City Hall at <a href="tel:9186754373">918-675-4373</a> before filing anything.'};
+    }
+  }
+  if(radioVal('fenceTriangle')==='yes'){
+    for(i=0;i<locs.length;i++){
+      h=fenceHeight(locs[i]); if(h===null) continue;
+      if(h>3){
+        return {id:'fencetri',t:'A fence in a sight-visibility triangle can\u2019t be over 3 feet',
+          b:'Part of your fence sits inside a <strong>sight-visibility triangle</strong> — the clear area at a street or driveway corner that lets drivers see each other. A fence there may be <strong>no taller than 3 feet</strong>, and the height you entered is <strong>'+h+' ft</strong>. A taller fence in that corner blocks drivers\u2019 view and can cause a wreck, so the office <strong>cannot approve it as submitted</strong>.<br><br>To continue, start over — keep the part of the fence inside the triangle at 3 feet or under, or move the fence line out of the triangle. Questions about where the triangle falls on your lot? Call City Hall at <a href="tel:9186754373">918-675-4373</a>.'};
+      }
+    }
+  }
+  if(radioVal('fencePool')==='yes'){
+    var hs=locs.map(function(l){return fenceHeight(l)}).filter(function(v){return v!==null});
+    if(hs.length&&Math.min.apply(null,hs)<4){
+      return {id:'fencepool',t:'A pool barrier fence must be at least 4 feet tall',
+        b:'A fence around a swimming pool is a <strong>safety barrier</strong> — it keeps small children from reaching the water alone. It must be <strong>at least 4 feet tall</strong> all the way around, and every gate in it must self-close and self-latch. One of the heights you entered is under 4 feet, so this fence <strong>cannot be approved as submitted</strong>.<br><br>To continue, start over and enter a height of at least 4 feet for every part of the pool fence. Questions? Call City Hall at <a href="tel:9186754373">918-675-4373</a>.'};
+    }
+  }
+  return null;
+}
+
 /* hard stops checked after screening validates */
 function screeningStop(){
+  var fenceS=fenceStop(); if(fenceS) return fenceS;
   var shedStop=shedLiveStop(); if(shedStop) return shedStop;
   if(jobKind()!=='home') return null;
   var hk=homeKind();
@@ -1625,6 +1896,7 @@ document.querySelectorAll('input[name="jobKind"]').forEach(function(r){
   r.addEventListener('change',function(){
     $('tradeBranch').style.display=jobKind()==='trade'?'block':'none';
     $('homeBranch').style.display=jobKind()==='home'?'block':'none';
+    syncFence();
     syncWorkTypes(); syncJobStep();
   });
 });
@@ -1635,6 +1907,11 @@ document.querySelectorAll('input[name="homeKind"]').forEach(function(r){
     $('homeDetailQs').style.display=homeKind()==='portable'?'none':'block';
     $('tinyNotice').style.display=homeKind()==='tiny'?'block':'none';
     syncShed();
+  });
+});
+['fenceProp','fenceLoc','fenceMat','fencePool','fenceTriangle'].forEach(function(nm){
+  document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){
+    r.addEventListener('change',function(){syncFence()});
   });
 });
 function syncWorkTypes(){
@@ -1649,6 +1926,11 @@ function syncJobStep(){
   $('f-sqft').style.display=needsSqft()?'block':'none';
   $('f-roofLayers').style.display=needsRoofLayers()?'block':'none';
   $('tradesPickBox').style.display=showTradesPick()?'block':'none';
+  var isF=jobKind()==='fence';
+  $('f-propType').style.display=isF?'none':'';
+  $('f-workTypes').style.display=isF?'none':'';
+  var fjn=$('fenceJobNote'); if(fjn) fjn.style.display=isF?'block':'none';
+  syncPlansStep();
   if(jobKind()==='home'){var r=document.querySelector('input[name="propType"][value="Residential"]');if(r){r.checked=true;highlightChoice(r)}}
   buildTradeBlocks();
   syncShed();
@@ -1774,8 +2056,15 @@ function lotDisp(v){if(LANG==='es')return{own:'Es dueño del lote',contract:'Con
 function summaryRows(){
   var rows=[];
   function add(k,v){if(v)rows.push([k,v])}
-  var kindLabel={'new':'Building something new','addition':'Addition / remodel','accessory':'Accessory / storage','roof':'Roof work only','trade':'Trade work only','home':'Placing a home on a lot','misc':'Other'}[jobKind()]||jobKind();
+  var kindLabel={'new':'Building something new','addition':'Addition / remodel','accessory':'Accessory / storage','roof':'Roof work only','trade':'Trade work only','home':'Placing a home on a lot','fence':'Fence','misc':'Other'}[jobKind()]||jobKind();
   add('Job type',tx(kindLabel));
+  if(jobKind()==='fence'){
+    add('Fence property type',tx(radioVal('fenceProp')==='Commercial'?'Commercial / Industrial':'Residential'));
+    fenceLocs().forEach(function(loc){add(FENCE_LOC_LABEL[loc]+' fence height',fenceHeight(loc)+(LANG==='es'?' pies':' ft'))});
+    add('Fence materials',fenceMaterialsText());
+    add('In a sight-visibility triangle',ynDisp(radioVal('fenceTriangle')));
+    add('Pool barrier fence',ynDisp(radioVal('fencePool')));
+  }
   if(jobKind()==='home'){add('Kind of home',tx({'manufactured':'Manufactured home','modular':'Modular home','tiny':'Tiny home','portable':'Portable building (storage only)'}[homeKind()]||homeKind()));
     add('Year built',val('homeYear')); add('Owns lot / contract',lotDisp(radioVal('ownLot'))); add('Will live in it',ynDisp(radioVal('willLive'))); add('Rent-to-own',ynDisp(radioVal('rentOwn')));}
   if(jobKind()==='trade') add('Trade',tradeDisp(radioVal('tradeOnly'))||'');
@@ -1790,7 +2079,8 @@ function summaryRows(){
   add('Est. cost','$'+Number(val('cost')||0).toLocaleString());
   if(needsSqft()) add('Square feet',Number(val('sqft')||0).toLocaleString()+(LANG==='es'?' pies cuadrados':' sq ft'));
   tradesInvolved().forEach(function(t){add(tradeDisp(t),val('trade-name-'+t)+(LANG==='es'?' — N.º de licencia ':' — Lic. # ')+val('trade-lic-'+t))});
-  if(needsPlans()){add('Materials',val('materials'));add('Foundation',tx(radioVal('foundation')));add('Studs',radioVal('studs')==='na'&&LANG==='es'?'Metal / sin montantes':radioVal('studs'));add('Roof',tx(radioVal('roofType'))+' / '+tx(radioVal('roofShape')));add('Sanitary',tx(radioVal('sanitary')));add('Site plan',hasDrawing?(LANG==='es'?'Dibujado en el formulario':'Drawn in form'):(files.siteplan.length?(LANG==='es'?'Adjunto: ':'Attached: ')+fileNames('siteplan'):'—'));}
+  if(needsPlans()&&jobKind()==='fence'){add('Site plan / survey',hasDrawing?(LANG==='es'?'Dibujado en el formulario':'Drawn in form'):(files.siteplan.length?(LANG==='es'?'Adjunto: ':'Attached: ')+fileNames('siteplan'):'—'));}
+  else if(needsPlans()){add('Materials',val('materials'));add('Foundation',tx(radioVal('foundation')));add('Studs',radioVal('studs')==='na'&&LANG==='es'?'Metal / sin montantes':radioVal('studs'));add('Roof',tx(radioVal('roofType'))+' / '+tx(radioVal('roofShape')));add('Sanitary',tx(radioVal('sanitary')));add('Site plan',hasDrawing?(LANG==='es'?'Dibujado en el formulario':'Drawn in form'):(files.siteplan.length?(LANG==='es'?'Adjunto: ':'Attached: ')+fileNames('siteplan'):'—'));}
   if(jobKind()==='home'){add('Deed / lot papers',fileNames('deed'));add('Home invoice',fileNames('invoice'));}
   add('Plans & specs attached',tx(radioVal('docsAttached'))+(files.plans.length?' — '+fileNames('plans'):''));
   add('Grading over 1 acre',tx(radioVal('grading'))+(files.storm.length?' — '+(LANG==='es'?'Plan de aguas pluviales: ':'Storm plan: ')+fileNames('storm'):''));
@@ -1862,6 +2152,7 @@ function buildPacket(){
   html+='<p>11. Will grading of lot be altering more than 1 acre? '+chkBox(radioVal('grading')==='Yes','Yes')+' '+chkBox(radioVal('grading')==='No','No')+' <em>(If Yes, applicant must meet requirements of Commerce City Code and submit a Storm Water Control plan to City Engineer.)</em>'+(files.storm.length?' — attached: '+esc(fileNames('storm')):'')+'</p>';
   html+='<p>12. Do you have any questions? '+chkBox(radioVal('hasQ')==='Yes','Yes')+' '+chkBox(radioVal('hasQ')==='No','No')+' <em>(If Yes, we will contact you to discuss any questions you may have.)</em>'+(val('qText')?'<br>&nbsp;&nbsp;'+f(val('qText'),'wide'):'')+'</p>';
   if(jobKind()==='home'){html+='<p style="font-family:\'IBM Plex Sans\',sans-serif;font-size:12px;border:1px solid #000;padding:8px">Placed-home details — Kind: '+esc(homeKind())+' · Year: '+esc(val('homeYear'))+' · Lot: '+esc(radioVal('ownLot'))+' · Owner will occupy: '+esc(radioVal('willLive'))+' · Rent-to-own: '+esc(radioVal('rentOwn'))+' · Deed/option attached: '+esc(fileNames('deed')||'—')+' · Invoice attached: '+esc(fileNames('invoice')||'—')+'<br>Note: this packet goes before the City Council before a permit can be issued.</p>'}
+  if(jobKind()==='fence'){var fd=fenceData();var locTxt=fenceLocs().map(function(l){return FENCE_LOC_LABEL[l]+' '+fenceHeight(l)+' ft'}).join(' · ');html+='<p style="font-family:\'IBM Plex Sans\',sans-serif;font-size:12px;border:1px solid #000;padding:8px">FENCE PERMIT — Ordinance No. 2026-03 (City Code Secs. 8-141–8-147), Community Development office<br>Property: '+esc(fd.propertyType==='Commercial'?'Commercial / Industrial':'Residential')+' · Locations &amp; heights: '+esc(locTxt)+' · Materials: '+esc(fenceMaterialsText())+'<br>In a sight-visibility triangle: '+esc(fd.inSightVisibilityTriangle)+' (max 3 ft there) · Pool barrier: '+esc(fd.poolBarrier)+(fd.poolBarrier==='yes'?' · Gates self-close &amp; self-latch: acknowledged':'')+'<br>Applicant confirms the fence will be built entirely inside their own property — not on or over the property line, and not in a street right-of-way.<br>Site plan / survey (Sec. 8-143): '+esc(fd.sitePlanOrSurvey||'see Attachment A')+'</p>'}
   html+='</div>';
   /* PAGE 2 */
   html+='<div class="ppage"><div class="sigline"><div><div class="sig">'+esc(val('sigName'))+'</div><div>(Signature of applicant) — signed online '+esc(sigDate)+'</div></div><p style="flex:1;margin:0">I agree to use State of Oklahoma &amp; City of Commerce licensed electrical, plumbing &amp; hvac contractors. I also understand neither unmetered water nor any surface drainage is allowed to enter the sanitary sewer. The approval of this application and the issuance of a permit do not legalize nor authorize any work, which is not in compliance with Code of the City of Commerce, Sanitary Regulations.</p></div>';
@@ -1882,8 +2173,9 @@ function buildPacket(){
   html+='<p><strong>Not Approved by:</strong> ______________________ (City Inspector) &nbsp; __________ (Date)</p></div>';
   /* PAGE 4 */
   html+='<div class="ppage"><p style="text-align:right;margin:0">Attachment A</p><h4 style="text-align:center">PLAN DRAWING</h4>';
-  html+='<p>Draw proposed construction<br>Draw existing utilities<br>Draw measurements from new construction to Property lines, all structures must have 10\' separation.<br>List materials used in construction: '+f(val('materials'),'wide')+'<br>Mark the following items if applicable:<br>&nbsp;&nbsp;Footing/Foundation: '+chkBox(radioVal('foundation')==='Slab','Slab')+' '+chkBox(radioVal('foundation')==='Crawl Space','Crawl Space')+'<br>&nbsp;&nbsp;Size/Spacing Studs: '+chkBox(radioVal('studs')==='16 in','16″')+' '+chkBox(radioVal('studs')==='24 in','24″')+(radioVal('studs')==='na'?' — Metal / no studs':'')+'<br>&nbsp;&nbsp;Type of Roof: '+chkBox(radioVal('roofType')==='Metal','Metal')+' '+chkBox(radioVal('roofType')==='Shingle','Shingle &')+' — '+chkBox(radioVal('roofShape')==='Flat','Flat')+' '+chkBox(radioVal('roofShape')==='Pitched','Pitched')+'<br>&nbsp;&nbsp;Sanitary Arrangement: '+chkBox(radioVal('sanitary')==='Sewer','Sewer')+' '+chkBox(radioVal('sanitary')==='Septic','Septic')+(radioVal('sanitary')==='None'?' — No plumbing':'')+'</p>';
+  html+='<p>Draw proposed construction<br>Draw existing utilities<br>Draw measurements from new construction to Property lines, all structures must have 10\' separation.<br>List materials used in construction: '+f(jobKind()==='fence'?fenceMaterialsText():val('materials'),'wide')+'<br>Mark the following items if applicable:<br>&nbsp;&nbsp;Footing/Foundation: '+chkBox(radioVal('foundation')==='Slab','Slab')+' '+chkBox(radioVal('foundation')==='Crawl Space','Crawl Space')+'<br>&nbsp;&nbsp;Size/Spacing Studs: '+chkBox(radioVal('studs')==='16 in','16″')+' '+chkBox(radioVal('studs')==='24 in','24″')+(radioVal('studs')==='na'?' — Metal / no studs':'')+'<br>&nbsp;&nbsp;Type of Roof: '+chkBox(radioVal('roofType')==='Metal','Metal')+' '+chkBox(radioVal('roofType')==='Shingle','Shingle &')+' — '+chkBox(radioVal('roofShape')==='Flat','Flat')+' '+chkBox(radioVal('roofShape')==='Pitched','Pitched')+'<br>&nbsp;&nbsp;Sanitary Arrangement: '+chkBox(radioVal('sanitary')==='Sewer','Sewer')+' '+chkBox(radioVal('sanitary')==='Septic','Septic')+(radioVal('sanitary')==='None'?' — No plumbing':'')+'</p>';
   html+='<div class="gridimg">'+drawingImg+'</div>';
+  if(jobKind()==='fence') html+='<p style="font-family:\'IBM Plex Sans\',sans-serif;font-size:12px">Fence site plan: the drawing above (or the attached survey) shows the property lines, easements, existing structures, and the proposed fence line. Fence locations &amp; heights: '+esc(fenceLocs().map(function(l){return FENCE_LOC_LABEL[l]+' '+fenceHeight(l)+' ft'}).join(' · '))+'</p>';
   if(files.siteplan.length) html+='<p style="font-family:\'IBM Plex Sans\',sans-serif;font-size:12px">Site plan file(s) attached with submission: '+esc(fileNames('siteplan'))+'</p>';
   html+='</div>';
   $('printPacket').innerHTML=html;
@@ -1897,7 +2189,7 @@ function collectPacket(){
   tradesInvolved().forEach(function(t){trades[TRADE_LABEL[t]]={company:val('trade-name-'+t),license:val('trade-lic-'+t)}});
   return {
     jobKind:jobKind(),
-    jobKindLabel:{'new':'Building something new','addition':'Addition / remodel','accessory':'Accessory / storage','roof':'Roof work only','trade':'Trade work only','home':'Placing a home on a lot','misc':'Other'}[jobKind()]||jobKind(),
+    jobKindLabel:{'new':'Building something new','addition':'Addition / remodel','accessory':'Accessory / storage','roof':'Roof work only','trade':'Trade work only','home':'Placing a home on a lot','fence':'Fence','misc':'Other'}[jobKind()]||jobKind(),
     tradeOnly:radioVal('tradeOnly'),
     homeKind:homeKind(),
     willLive:radioVal('willLive'),
@@ -1905,6 +2197,7 @@ function collectPacket(){
     rentOwn:radioVal('rentOwn'),
     ownLot:radioVal('ownLot'),
     shedOccupy:radioVal('shedOccupy')||radioVal('shedOccupyJob'),
+    fence:jobKind()==='fence'?fenceData():null,
     owner:{name:val('ownerName'),address:val('ownerAddr'),phone:val('ownerPhone')},
     contractor:{name:val('conName'),address:val('conAddr'),phone:val('conPhone')},
     job:{address:val('jobAddr'),propertyType:radioVal('propType'),workTypes:checkedVals('workType'),roofLayers:val('roofLayers'),tradesPicked:checkedVals('tradesPick'),description:val('jobDesc'),estCost:val('cost'),sqFt:needsSqft()?val('sqft'):''},
@@ -2002,7 +2295,7 @@ $('submitBtn').addEventListener('click',function(){
       applicant_name:val('ownerName'),
       applicant_phone:val('ownerPhone'),
       job_address:val('jobAddr'),
-      job_kind:{'new':'Building something new','addition':'Addition / remodel','accessory':'Accessory / storage','roof':'Roof work only','trade':'Trade work only','home':'Placing a home on a lot','misc':'Other'}[jobKind()]||jobKind(),
+      job_kind:{'new':'Building something new','addition':'Addition / remodel','accessory':'Accessory / storage','roof':'Roof work only','trade':'Trade work only','home':'Placing a home on a lot','fence':'Fence','misc':'Other'}[jobKind()]||jobKind(),
       trades:tradesInvolved().map(function(t){return TRADE_LABEL[t]}),
       est_cost:val('cost'),
       sq_ft:needsSqft()?val('sqft'):'',
