@@ -675,6 +675,7 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
   <section class="success" id="successScreen">
     <div class="card">
       <div class="notice green" style="margin-top:0"><strong>✓ Packet submitted</strong> Your building packet is complete and has been sent to the City of Commerce office. The office will print it and begin review. Please allow 5 business days for residential approval or 14–28 business days for commercial approval. For inspections, call 918-675-4373.</div>
+      <p id="refLine" style="font-size:15px;display:none">Your submission reference: <strong id="refCode"></strong><br>Write it down. If you call City Hall about this packet at 918-675-4373, give them this reference so they can find your packet quickly.</p>
       <p style="font-size:15px">Want a copy for yourself? View the packet below exactly as the office will print it — all 4 pages, including the staff page and your Attachment A plan drawing. When this portal is open in a regular browser, you can print or save that view from your browser's menu.</p>
       <div class="btnrow"><button type="button" class="btn primary" id="previewBtn">View my finished packet (4 pages)</button></div>
       <div class="btnrow"><button type="button" class="btn ghost" id="againBtn">Start a new packet</button></div>
@@ -1375,6 +1376,8 @@ var ES={
 "Call 918-675-4373":"Llamar al 918-675-4373",
 "Start over":"Empezar de nuevo",
 "✓ Packet submitted":"✓ Paquete enviado",
+"Your submission reference:":"Su referencia de envío:",
+"Write it down. If you call City Hall about this packet at 918-675-4373, give them this reference so they can find your packet quickly.":"Anótela. Si llama al Ayuntamiento acerca de este paquete al 918-675-4373, dé esta referencia para que puedan encontrar su paquete rápidamente.",
 "Your building packet is complete and has been sent to the City of Commerce office. The office will print it and begin review. Please allow 5 business days for residential approval or 14–28 business days for commercial approval. For inspections, call 918-675-4373.":"Su paquete de construcción está completo y se envió a la oficina de la Ciudad de Commerce. La oficina lo imprimirá y comenzará la revisión. Permita 5 días hábiles para la aprobación residencial o de 14 a 28 días hábiles para la comercial. Para inspecciones, llame al 918-675-4373.",
 "Want a copy for yourself? View the packet below exactly as the office will print it — all 4 pages, including the staff page and your Attachment A plan drawing. When this portal is open in a regular browser, you can print or save that view from your browser's menu.":"¿Quiere una copia para usted? Vea el paquete abajo, exactamente como lo imprimirá la oficina — las 4 páginas, incluida la página del personal y su dibujo del plano del Anexo A. Cuando este portal esté abierto en un navegador normal, puede imprimir o guardar esa vista desde el menú de su navegador.",
 "View my finished packet (4 pages)":"Ver mi paquete terminado (4 páginas)",
@@ -2279,6 +2282,7 @@ $('submitBtn').addEventListener('click',function(){
   var btn=$('submitBtn');
   var origLabel=tx('Submit packet');
   sending=true;
+  var submittedAt=new Date();
   btn.disabled=true;
   btn.textContent=tx('Sending…');
   hideErrors();
@@ -2291,7 +2295,7 @@ $('submitBtn').addEventListener('click',function(){
     });
   }).then(function(attachments){
     var payload={
-      received_at:new Date().toISOString(),
+      received_at:submittedAt.toISOString(),
       applicant_name:val('ownerName'),
       applicant_phone:val('ownerPhone'),
       job_address:val('jobAddr'),
@@ -2310,6 +2314,12 @@ $('submitBtn').addEventListener('click',function(){
     document.querySelectorAll('.step').forEach(function(s){s.classList.remove('active')});
     $('progressBox').style.display='none';
     $('successScreen').classList.add('show');
+    /* Submission reference: built from the same received_at timestamp the
+       receiver stores in the sheet, so the office can find this packet by
+       the time on the reference (e.g. BP-20261023-0941 = Oct 23, 2026, 9:41 AM). */
+    var rp=function(n){return (n<10?'0':'')+n;};
+    $('refCode').textContent='BP-'+submittedAt.getFullYear()+rp(submittedAt.getMonth()+1)+rp(submittedAt.getDate())+'-'+rp(submittedAt.getHours())+rp(submittedAt.getMinutes());
+    $('refLine').style.display='block';
     window.scrollTo({top:0,behavior:'smooth'});
   }).catch(function(){
     sending=false;
