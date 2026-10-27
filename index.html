@@ -58,7 +58,7 @@ h1{font-size:24px;line-height:1.2;margin:14px 0 6px;font-weight:700;letter-spaci
 .field{margin-bottom:16px}
 .field label.lab{display:flex;align-items:flex-start;gap:6px;font-weight:600;font-size:15px;margin-bottom:5px;line-height:1.35}
 .field .hint{font-size:13.5px;color:var(--muted);margin:-2px 0 6px}
-input[type=text],input[type=tel],input[type=number],input[type=date],select,textarea{
+input[type=text],input[type=tel],input[type=email],input[type=number],input[type=date],select,textarea{
   width:100%;padding:13px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);font-size:16px;min-height:50px}
 textarea{min-height:96px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:3px solid rgba(30,58,102,.28);border-color:var(--navy2)}
@@ -410,6 +410,8 @@ ul.tight{margin:8px 0;padding-left:20px} ul.tight li{margin-bottom:5px;font-size
         <input type="text" id="ownerAddr" autocomplete="street-address" placeholder="Street, city, state, ZIP"><div class="err-text">Please enter the owner's mailing address.</div></div>
       <div class="field" id="f-ownerPhone"><label class="lab">Owner — phone number</label>
         <input type="tel" id="ownerPhone" autocomplete="tel" placeholder="(___) ___-____"><div class="err-text">Please enter a phone number the office can reach.</div></div>
+      <div class="field" id="f-ownerEmail"><label class="lab">Email (optional) — get status updates</label>
+        <input type="email" id="ownerEmail" autocomplete="email" placeholder="you@example.com"><div class="err-text">Please enter a valid email address, or leave it blank.</div></div>
 
       <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
       <div class="field" id="f-conName"><label class="lab">2. Contractor / Builder — name <button type="button" class="helpbtn" data-help="contractor" aria-label="Help: contractor">?</button></label>
@@ -1252,6 +1254,8 @@ var ES={
 "Please enter the owner's mailing address.":"Ingrese la dirección postal del propietario.",
 "Owner — phone number":"Propietario — número de teléfono",
 "Please enter a phone number the office can reach.":"Ingrese un número de teléfono donde la oficina pueda comunicarse.",
+"Email (optional) — get status updates":"Correo electrónico (opcional) — reciba avisos del estado",
+"Please enter a valid email address, or leave it blank.":"Ingrese un correo electrónico válido, o déjelo en blanco.",
 "2. Contractor / Builder — name":"2. Contratista / Constructor — nombre",
 "Builder or contractor name":"Nombre del constructor o contratista",
 "Same as owner — I'm doing the work myself / acting as my own contractor":"Igual que el propietario — haré el trabajo yo mismo / actuaré como mi propio contratista",
@@ -1376,9 +1380,9 @@ var ES={
 "Call 918-675-4373":"Llamar al 918-675-4373",
 "Start over":"Empezar de nuevo",
 "✓ Packet submitted":"✓ Paquete enviado",
+"Your building packet is complete and has been sent to the City of Commerce office. The office will print it and begin review. Please allow 5 business days for residential approval or 14–28 business days for commercial approval. For inspections, call 918-675-4373.":"Su paquete de construcción está completo y se envió a la oficina de la Ciudad de Commerce. La oficina lo imprimirá y comenzará la revisión. Permita 5 días hábiles para la aprobación residencial o de 14 a 28 días hábiles para la comercial. Para inspecciones, llame al 918-675-4373.",
 "Your submission reference:":"Su referencia de envío:",
 "Write it down. If you call City Hall about this packet at 918-675-4373, give them this reference so they can find your packet quickly.":"Anótela. Si llama al Ayuntamiento acerca de este paquete al 918-675-4373, dé esta referencia para que puedan encontrar su paquete rápidamente.",
-"Your building packet is complete and has been sent to the City of Commerce office. The office will print it and begin review. Please allow 5 business days for residential approval or 14–28 business days for commercial approval. For inspections, call 918-675-4373.":"Su paquete de construcción está completo y se envió a la oficina de la Ciudad de Commerce. La oficina lo imprimirá y comenzará la revisión. Permita 5 días hábiles para la aprobación residencial o de 14 a 28 días hábiles para la comercial. Para inspecciones, llame al 918-675-4373.",
 "Want a copy for yourself? View the packet below exactly as the office will print it — all 4 pages, including the staff page and your Attachment A plan drawing. When this portal is open in a regular browser, you can print or save that view from your browser's menu.":"¿Quiere una copia para usted? Vea el paquete abajo, exactamente como lo imprimirá la oficina — las 4 páginas, incluida la página del personal y su dibujo del plano del Anexo A. Cuando este portal esté abierto en un navegador normal, puede imprimir o guardar esa vista desde el menú de su navegador.",
 "View my finished packet (4 pages)":"Ver mi paquete terminado (4 páginas)",
 "Start a new packet":"Comenzar un paquete nuevo",
@@ -1729,6 +1733,7 @@ function showErrors(list,invalidIds){
 }
 function hideErrors(){$('errBox').classList.remove('show');document.querySelectorAll('.field.invalid').forEach(function(f){f.classList.remove('invalid')})}
 function phoneOk(v){return v.replace(/\D/g,'').length>=10}
+function emailOk(v){v=(v||'').trim();if(!v)return true;var at=v.indexOf('@');return at>0&&v.slice(at+1).indexOf('.')>0}
 function failIf(cond,msg,ids,errs,inv){if(cond){errs.push(msg);(ids||[]).forEach(function(i){inv.push(i)})}}
 
 /* ================= VALIDATORS ================= */
@@ -1767,6 +1772,7 @@ function validateStep(id){
     failIf(!val('ownerName'),"Enter the owner's full name.",['f-ownerName'],errs,inv);
     failIf(!val('ownerAddr'),"Enter the owner's mailing address.",['f-ownerAddr'],errs,inv);
     failIf(!phoneOk(val('ownerPhone')),"Enter the owner's phone number (10 digits).",['f-ownerPhone'],errs,inv);
+    failIf(!emailOk(val('ownerEmail')),"Please enter a valid email address, or leave it blank.",['f-ownerEmail'],errs,inv);
     failIf(!val('conName'),'Enter the contractor / builder name — or tap "Same as owner."',['f-conName'],errs,inv);
     failIf(!val('conAddr'),"Enter the contractor's address.",['f-conAddr'],errs,inv);
     failIf(!phoneOk(val('conPhone')),"Enter the contractor's phone number (10 digits).",['f-conPhone'],errs,inv);
@@ -2282,9 +2288,9 @@ $('submitBtn').addEventListener('click',function(){
   var btn=$('submitBtn');
   var origLabel=tx('Submit packet');
   sending=true;
-  var submittedAt=new Date();
   btn.disabled=true;
   btn.textContent=tx('Sending…');
+  var submittedAt=new Date();
   hideErrors();
   collectAttachments().then(function(attachments){
     /* Generate the finished packet PDF and ride it along with the
@@ -2298,6 +2304,7 @@ $('submitBtn').addEventListener('click',function(){
       received_at:submittedAt.toISOString(),
       applicant_name:val('ownerName'),
       applicant_phone:val('ownerPhone'),
+      applicant_email:val('ownerEmail'),
       job_address:val('jobAddr'),
       job_kind:{'new':'Building something new','addition':'Addition / remodel','accessory':'Accessory / storage','roof':'Roof work only','trade':'Trade work only','home':'Placing a home on a lot','fence':'Fence','misc':'Other'}[jobKind()]||jobKind(),
       trades:tradesInvolved().map(function(t){return TRADE_LABEL[t]}),
