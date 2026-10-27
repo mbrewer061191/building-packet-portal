@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Report a Code Violation — City of Commerce, OK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,600;0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF0F3; --card:#FFFFFF; --ink:#17233B; --muted:#5B6577; --line:#D9DEE7;
+  --navy:#16294D; --navy2:#1E3A66; --gold:#B9862F; --gold-soft:#FBF3DF;
+  --red:#B42318; --red-soft:#FEF1F0; --green:#177245; --green-soft:#EAF6EE;
+  --blue-soft:#EBEFF7; --radius:14px;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#10151F; --card:#1A2130; --ink:#EDF0F6; --muted:#A7B0C2; --line:#2E3850;
+  --navy:#0F1B33; --gold-soft:#2C2517; --blue-soft:#1D2942; --red-soft:#2E1A18; --green-soft:#15281E; --shadow:none; }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--navy2)}
+@media (prefers-color-scheme: dark){ a{color:#9DB8E8} }
+.citybar{background:#fff;color:#16294D;padding:0;text-align:center;border-bottom:1px solid var(--line)}
+.citybar .mast{padding:18px 12px 2px;max-width:840px;margin:0 auto}
+.cityname{font-family:"IBM Plex Serif",serif;font-weight:700;font-size:26px;letter-spacing:.01em}
+.citysub{font-size:13.5px;color:#5B6577;padding-bottom:4px}
+.langbar{display:flex;justify-content:center;gap:8px;padding:10px 12px 12px;background:#fff}
+.langbtn{border:1.5px solid #16294D;background:#fff;color:#16294D;border-radius:99px;padding:8px 20px;font-weight:700;font-size:14.5px;cursor:pointer;min-height:42px}
+.langbtn.active{background:#16294D;color:#fff}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 90px}
+h1{font-size:24px;line-height:1.2;margin:14px 0 6px;font-weight:700;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 14px;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 16px;margin-bottom:14px}
+.notice{border-radius:10px;padding:12px 14px;font-size:14.5px;margin:12px 0}
+.notice.blue{background:var(--blue-soft);border:1px solid var(--line)}
+.notice.red{background:var(--red-soft);border:1px solid #F0B8B2}
+.notice.green{background:var(--green-soft);border:1px solid #A9D8BB}
+.notice strong{display:block;margin-bottom:2px}
+.field{margin-bottom:16px}
+.field label.lab{display:block;font-weight:600;font-size:15px;margin-bottom:5px;line-height:1.35}
+.field .hint{font-size:13.5px;color:var(--muted);margin:-2px 0 6px}
+.field .err-text{display:none;color:var(--red);font-size:13.5px;font-weight:600;margin-top:4px}
+.field.invalid input,.field.invalid textarea,.field.invalid select{border-color:var(--red)}
+.field.invalid .err-text{display:block}
+input[type=text],input[type=tel],select,textarea{width:100%;padding:13px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);font-size:16px;min-height:50px}
+textarea{min-height:110px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:3px solid rgba(30,58,102,.28);border-color:var(--navy2)}
+input[type=file]{width:100%;font-size:14.5px}
+.checkline{display:flex;gap:10px;align-items:flex-start;background:var(--blue-soft);border:1px solid var(--line);border-radius:10px;padding:12px 14px;cursor:pointer}
+.checkline input{width:22px;height:22px;flex:none;margin-top:2px;accent-color:var(--navy2)}
+.checkline .t{font-weight:600;font-size:15px;display:block}
+.checkline .d{font-size:13.5px;color:var(--muted);display:block}
+.btnrow{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.btn{appearance:none;border:0;border-radius:12px;padding:15px 20px;font-weight:700;font-size:16px;cursor:pointer;min-height:54px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn.primary{background:var(--navy);color:#fff;flex:1}
+@media (prefers-color-scheme: dark){ .btn.primary{background:#1E3A66} }
+.btn.primary:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:var(--card);border:1.5px solid var(--line);color:var(--ink)}
+.bigref{font-size:22px;font-weight:700;letter-spacing:.01em;margin:2px 0 6px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<header class="citybar">
+  <div class="mast">
+    <div class="cityname">City of Commerce</div>
+    <div class="citysub">618 Commerce Ave. · P.O. Box 99 · Commerce, OK 74339 · 918-675-4373</div>
+  </div>
+  <div class="langbar" role="group" aria-label="Language / Idioma">
+    <button type="button" class="langbtn active" id="langEn">English</button>
+    <button type="button" class="langbtn" id="langEs">Español</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 data-i18n="title">Report a code violation</h1>
+  <p class="sub" data-i18n="sub">Tell the City of Commerce code enforcement office about a problem property. Your report goes straight to the code enforcement inbox.</p>
+
+  <div class="card" id="formCard">
+    <div class="field" id="f-address">
+      <label class="lab" for="address" data-i18n="addressLabel">Address of the problem property *</label>
+      <p class="hint" data-i18n="addressHint">Street address in Commerce, OK — for example, 419 N River.</p>
+      <input type="text" id="address" autocomplete="street-address"/>
+      <p class="err-text" data-i18n="addressErr">The address is required.</p>
+    </div>
+
+    <div class="field" id="f-type">
+      <label class="lab" for="type" data-i18n="typeLabel">What kind of problem is it? *</label>
+      <select id="type"></select>
+      <p class="err-text" data-i18n="typeErr">Pick the closest match.</p>
+    </div>
+
+    <div class="field" id="f-desc">
+      <label class="lab" for="desc" data-i18n="descLabel">Describe the problem *</label>
+      <p class="hint" data-i18n="descHint">A few plain sentences are perfect — what you see, and since when, if you know.</p>
+      <textarea id="desc"></textarea>
+      <p class="err-text" data-i18n="descErr">A short description is required.</p>
+    </div>
+
+    <div class="field">
+      <label class="lab" for="photo" data-i18n="photoLabel">Photo (optional)</label>
+      <p class="hint" data-i18n="photoHint">One photo of the problem, if you have one.</p>
+      <input type="file" id="photo" accept="image/*"/>
+    </div>
+
+    <div class="field">
+      <label class="checkline" for="anon">
+        <input type="checkbox" id="anon"/>
+        <span><span class="t" data-i18n="anonTitle">Report anonymously</span>
+        <span class="d" data-i18n="anonDesc">Check this and we will not ask for — or keep — your name or phone number.</span></span>
+      </label>
+    </div>
+
+    <div id="contactBlock">
+      <div class="field">
+        <label class="lab" for="cname" data-i18n="nameLabel">Your name (optional)</label>
+        <input type="text" id="cname" autocomplete="name"/>
+      </div>
+      <div class="field">
+        <label class="lab" for="cphone" data-i18n="phoneLabel">Your phone (optional)</label>
+        <p class="hint" data-i18n="phoneHint">Only used if code enforcement needs to ask you about this report.</p>
+        <input type="tel" id="cphone" autocomplete="tel"/>
+      </div>
+    </div>
+
+    <div class="btnrow">
+      <button type="button" class="btn primary" id="sendBtn" data-i18n="sendBtn">Send report</button>
+    </div>
+    <div id="sendError"></div>
+  </div>
+
+  <div class="card hidden" id="doneCard">
+    <div class="notice green" style="margin-top:0">
+      <strong data-i18n="doneTitle">Thank you — your report was sent</strong>
+      <span data-i18n="doneBody">Your reference is:</span>
+      <p class="bigref" id="doneRef"></p>
+      <span data-i18n="doneNext">Write it down if you call City Hall about this report. Code enforcement reviews every report; if a case is opened, an officer will visit the property.</span>
+    </div>
+    <div class="btnrow">
+      <button type="button" class="btn ghost" id="againBtn" data-i18n="againBtn">Report another problem</button>
+    </div>
+  </div>
+</main>
+
+<script>
+var RECEIVER_URL = 'https://script.google.com/macros/s/AKfycbyoaqMyDRY5-Xum2tcIP1VZjkIVvaZkkQiUkUhH5AIYnLBoXhVQ1POr5So6X67W3wUdNA/exec';
+var LANG = 'en';
+
+/* Values are the code enforcement app's own violation type strings. */
+var TYPES = [
+  ['Tall Grass / Weeds', 'Tall grass / weeds', 'Hierba alta / maleza'],
+  ['Trash & Debris Accumulation', 'Trash & debris', 'Acumulación de basura y escombros'],
+  ['Inoperable / Abandoned Vehicle', 'Inoperable / abandoned vehicle', 'Vehículo inoperable / abandonado'],
+  ['Dilapidated Structure', 'Dilapidated structure', 'Estructura deteriorada'],
+  ['Unsecured / Open Structure', 'Unsecured / open structure', 'Estructura abierta / sin asegurar'],
+  ['Obstruction of Public Way', 'Obstruction of street, alley, or sidewalk', 'Obstrucción de calle, callejón o acera'],
+  ['Obstructed Sight Triangle', 'Blocked view at an intersection', 'Vista bloqueada en una intersección'],
+  ['Obstructed View / Traffic Hazard', 'Trees or shrubs blocking drivers\u2019 view', 'Árboles o arbustos que bloquean la vista de los conductores'],
+  ['Improper Tree/Shrub Trimming Over Public Way', 'Trees or shrubs hanging over street or sidewalk', 'Árboles o arbustos sobre la calle o la acera'],
+  ['Open Burning', 'Open burning', 'Quema a cielo abierto'],
+  ['Public Nuisance', 'Nuisance (noise, odors, other)', 'Molestia pública (ruido, olores, otro)'],
+  ['Other (Manual Entry)', 'Other', 'Otro']
+];
+
+var STR = {
+  en: {
+    title: 'Report a code violation',
+    sub: 'Tell the City of Commerce code enforcement office about a problem property. Your report goes straight to the code enforcement inbox.',
+    addressLabel: 'Address of the problem property *',
+    addressHint: 'Street address in Commerce, OK — for example, 419 N River.',
+    addressErr: 'The address is required.',
+    typeLabel: 'What kind of problem is it? *',
+    typeErr: 'Pick the closest match.',
+    typePick: 'Choose one…',
+    descLabel: 'Describe the problem *',
+    descHint: 'A few plain sentences are perfect — what you see, and since when, if you know.',
+    descErr: 'A short description is required.',
+    photoLabel: 'Photo (optional)',
+    photoHint: 'One photo of the problem, if you have one.',
+    anonTitle: 'Report anonymously',
+    anonDesc: 'Check this and we will not ask for — or keep — your name or phone number.',
+    nameLabel: 'Your name (optional)',
+    phoneLabel: 'Your phone (optional)',
+    phoneHint: 'Only used if code enforcement needs to ask you about this report.',
+    sendBtn: 'Send report',
+    sending: 'Sending…',
+    failedBody: 'Your report could not be sent. Check your connection and try again, or call City Hall at 918-675-4373.',
+    doneTitle: 'Thank you — your report was sent',
+    doneBody: 'Your reference is:',
+    doneNext: 'Write it down if you call City Hall about this report. Code enforcement reviews every report; if a case is opened, an officer will visit the property.',
+    againBtn: 'Report another problem'
+  },
+  es: {
+    title: 'Reportar una infracción al código',
+    sub: 'Avise a la oficina de cumplimiento de códigos de la Ciudad de Commerce sobre una propiedad con problemas. Su reporte llega directamente a la oficina.',
+    addressLabel: 'Dirección de la propiedad con el problema *',
+    addressHint: 'Dirección en Commerce, OK — por ejemplo, 419 N River.',
+    addressErr: 'La dirección es obligatoria.',
+    typeLabel: '¿Qué tipo de problema es? *',
+    typeErr: 'Elija la opción más cercana.',
+    typePick: 'Elija una…',
+    descLabel: 'Describa el problema *',
+    descHint: 'Unas frases sencillas están perfectas — lo que ve, y desde cuándo, si lo sabe.',
+    descErr: 'Se requiere una breve descripción.',
+    photoLabel: 'Foto (opcional)',
+    photoHint: 'Una foto del problema, si tiene una.',
+    anonTitle: 'Reportar de forma anónima',
+    anonDesc: 'Marque esto y no le pediremos — ni guardaremos — su nombre ni su número de teléfono.',
+    nameLabel: 'Su nombre (opcional)',
+    phoneLabel: 'Su teléfono (opcional)',
+    phoneHint: 'Solo se usa si la oficina necesita preguntarle sobre este reporte.',
+    sendBtn: 'Enviar reporte',
+    sending: 'Enviando…',
+    failedBody: 'Su reporte no pudo enviarse. Revise su conexión e inténtelo de nuevo, o llame al Ayuntamiento al 918-675-4373.',
+    doneTitle: 'Gracias — su reporte fue enviado',
+    doneBody: 'Su referencia es:',
+    doneNext: 'Anótela si llama al Ayuntamiento sobre este reporte. La oficina revisa cada reporte; si se abre un caso, un oficial visitará la propiedad.',
+    againBtn: 'Reportar otro problema'
+  }
+};
+
+function $(id){ return document.getElementById(id); }
+function tx(k){ return STR[LANG][k]; }
+
+function buildTypes(){
+  var sel = $('type');
+  var current = sel.value;
+  sel.innerHTML = '';
+  var pick = document.createElement('option');
+  pick.value = '';
+  pick.textContent = tx('typePick');
+  sel.appendChild(pick);
+  TYPES.forEach(function(t){
+    var o = document.createElement('option');
+    o.value = t[0];
+    o.textContent = LANG === 'es' ? t[2] : t[1];
+    sel.appendChild(o);
+  });
+  sel.value = current;
+}
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if (STR[LANG][k]) el.textContent = STR[LANG][k];
+  });
+  document.title = LANG === 'es' ? 'Reportar una infracción — Ciudad de Commerce, OK' : 'Report a Code Violation — City of Commerce, OK';
+  document.documentElement.lang = LANG;
+  buildTypes();
+}
+function setLang(l){
+  if (l === LANG) return;
+  LANG = l;
+  $('langEn').classList.toggle('active', l === 'en');
+  $('langEs').classList.toggle('active', l === 'es');
+  applyLang();
+}
+$('langEn').addEventListener('click', function(){ setLang('en'); });
+$('langEs').addEventListener('click', function(){ setLang('es'); });
+
+$('anon').addEventListener('change', function(){
+  var anon = $('anon').checked;
+  $('contactBlock').classList.toggle('hidden', anon);
+  if (anon) { $('cname').value = ''; $('cphone').value = ''; }
+});
+
+/* Photo -> base64 the same way the packet portal sends attachments
+   ({name, mimeType, dataBase64}); images are downscaled first so a
+   phone photo stays a sane size. */
+function readPhoto(file){
+  return new Promise(function(resolve){
+    if (!file) { resolve(null); return; }
+    var raw = function(){
+      var r = new FileReader();
+      r.onload = function(){
+        var s = String(r.result || '');
+        var i = s.indexOf(',');
+        resolve({ name: file.name || 'photo', mimeType: file.type || 'application/octet-stream', dataBase64: i >= 0 ? s.slice(i + 1) : s });
+      };
+      r.onerror = function(){ resolve(null); };
+      r.readAsDataURL(file);
+    };
+    if (!/^image\//.test(file.type || '')) { raw(); return; }
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function(){
+      try {
+        var max = 1600;
+        var scale = Math.min(1, max / Math.max(img.width, img.height));
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        var dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        URL.revokeObjectURL(url);
+        resolve({ name: 'photo.jpg', mimeType: 'image/jpeg', dataBase64: dataUrl.slice(dataUrl.indexOf(',') + 1) });
+      } catch (e) { URL.revokeObjectURL(url); raw(); }
+    };
+    img.onerror = function(){ URL.revokeObjectURL(url); raw(); };
+    img.src = url;
+  });
+}
+
+function markInvalid(id, bad){ $(id).classList.toggle('invalid', bad); }
+
+$('sendBtn').addEventListener('click', function(){
+  var address = $('address').value.trim();
+  var type = $('type').value;
+  var desc = $('desc').value.trim();
+  var badAddress = !address, badType = !type, badDesc = !desc;
+  markInvalid('f-address', badAddress);
+  markInvalid('f-type', badType);
+  markInvalid('f-desc', badDesc);
+  if (badAddress || badType || badDesc) return;
+
+  var btn = $('sendBtn');
+  btn.disabled = true;
+  btn.textContent = tx('sending');
+  $('sendError').innerHTML = '';
+
+  readPhoto($('photo').files[0]).then(function(photo){
+    var anon = $('anon').checked;
+    var payload = {
+      action: 'complaint',
+      received_at: new Date().toISOString(),
+      address: address,
+      type: type,
+      description: desc,
+      photo: photo,
+      contactName: anon ? '' : $('cname').value.trim(),
+      contactPhone: anon ? '' : $('cphone').value.trim(),
+      anonymous: anon
+    };
+    return fetch(RECEIVER_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) })
+      .then(function(r){ return r.json(); });
+  }).then(function(res){
+    if (res && res.ok && res.ref) {
+      $('doneRef').textContent = res.ref;
+      $('formCard').classList.add('hidden');
+      $('doneCard').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      throw new Error((res && res.error) || 'send failed');
+    }
+  }).catch(function(){
+    $('sendError').innerHTML = '<div class="notice red">' + tx('failedBody') + '</div>';
+  }).finally(function(){
+    btn.disabled = false;
+    btn.textContent = tx('sendBtn');
+  });
+});
+
+$('againBtn').addEventListener('click', function(){
+  $('doneCard').classList.add('hidden');
+  $('formCard').classList.remove('hidden');
+  $('address').value = ''; $('desc').value = ''; $('photo').value = '';
+  $('type').value = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+buildTypes();
+</script>
+</body>
+</html>

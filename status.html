@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<link rel="icon" href="data:,"/>
+<title>Packet Status — City of Commerce, OK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,600;0,700;1,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF0F3; --card:#FFFFFF; --ink:#17233B; --muted:#5B6577; --line:#D9DEE7;
+  --navy:#16294D; --navy2:#1E3A66; --gold:#B9862F; --gold-soft:#FBF3DF;
+  --red:#B42318; --red-soft:#FEF1F0; --green:#177245; --green-soft:#EAF6EE;
+  --blue-soft:#EBEFF7; --radius:14px;
+  --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#10151F; --card:#1A2130; --ink:#EDF0F6; --muted:#A7B0C2; --line:#2E3850;
+  --navy:#0F1B33; --gold-soft:#2C2517; --blue-soft:#1D2942; --red-soft:#2E1A18; --green-soft:#15281E; --shadow:none; }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:var(--navy2)}
+@media (prefers-color-scheme: dark){ a{color:#9DB8E8} }
+.citybar{background:#fff;color:#16294D;padding:0;text-align:center;border-bottom:1px solid var(--line)}
+.citybar .mast{padding:18px 12px 2px;max-width:840px;margin:0 auto}
+.cityname{font-family:"IBM Plex Serif",serif;font-weight:700;font-size:26px;letter-spacing:.01em}
+.citysub{font-size:13.5px;color:#5B6577;padding-bottom:4px}
+.langbar{display:flex;justify-content:center;gap:8px;padding:10px 12px 12px;background:#fff}
+.langbtn{border:1.5px solid #16294D;background:#fff;color:#16294D;border-radius:99px;padding:8px 20px;font-weight:700;font-size:14.5px;cursor:pointer;min-height:42px}
+.langbtn.active{background:#16294D;color:#fff}
+.wrap{max-width:760px;margin:0 auto;padding:16px 14px 90px}
+h1{font-size:24px;line-height:1.2;margin:14px 0 6px;font-weight:700;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 14px;font-size:15px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 16px;margin-bottom:14px}
+.notice{border-radius:10px;padding:12px 14px;font-size:14.5px;margin:12px 0}
+.notice.blue{background:var(--blue-soft);border:1px solid var(--line)}
+.notice.red{background:var(--red-soft);border:1px solid #F0B8B2}
+.notice.green{background:var(--green-soft);border:1px solid #A9D8BB}
+.notice strong{display:block;margin-bottom:2px}
+.field{margin-bottom:16px}
+.field label.lab{display:block;font-weight:600;font-size:15px;margin-bottom:5px;line-height:1.35}
+.field .hint{font-size:13.5px;color:var(--muted);margin:-2px 0 6px}
+input[type=text]{width:100%;padding:13px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--card);font-size:16px;min-height:50px;text-transform:uppercase}
+input:focus{outline:3px solid rgba(30,58,102,.28);border-color:var(--navy2)}
+.btnrow{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.btn{appearance:none;border:0;border-radius:12px;padding:15px 20px;font-weight:700;font-size:16px;cursor:pointer;min-height:54px;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn.primary{background:var(--navy);color:#fff;flex:1}
+@media (prefers-color-scheme: dark){ .btn.primary{background:#1E3A66} }
+.btn.primary:disabled{opacity:.45;cursor:not-allowed}
+.statusline{font-size:20px;font-weight:700;margin:0 0 4px}
+.refline{font-size:13.5px;color:var(--muted);margin:0}
+</style>
+</head>
+<body>
+
+<header class="citybar">
+  <div class="mast">
+    <div class="cityname">City of Commerce</div>
+    <div class="citysub">618 Commerce Ave. · P.O. Box 99 · Commerce, OK 74339 · 918-675-4373</div>
+  </div>
+  <div class="langbar" role="group" aria-label="Language / Idioma">
+    <button type="button" class="langbtn active" id="langEn">English</button>
+    <button type="button" class="langbtn" id="langEs">Español</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <h1 data-i18n="title">Check your packet status</h1>
+  <p class="sub" data-i18n="sub">Enter the reference from your confirmation screen — it looks like BP-20261021-1430 — to see where your building packet stands.</p>
+
+  <div class="card">
+    <div class="field">
+      <label class="lab" for="refInput" data-i18n="refLabel">Packet reference</label>
+      <p class="hint" data-i18n="refHint">You were shown this reference right after you submitted your packet.</p>
+      <input type="text" id="refInput" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="BP-20261021-1430"/>
+    </div>
+    <div class="btnrow">
+      <button type="button" class="btn primary" id="checkBtn" data-i18n="checkBtn">Check status</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <div class="notice blue">
+    <strong data-i18n="privacyTitle">Only the status is shown</strong>
+    <span data-i18n="privacyBody">This page never shows names, addresses, or packet details — just how far along your packet is. Questions? Call City Hall at 918-675-4373.</span>
+  </div>
+</main>
+
+<script>
+var RECEIVER_URL = 'https://script.google.com/macros/s/AKfycbyoaqMyDRY5-Xum2tcIP1VZjkIVvaZkkQiUkUhH5AIYnLBoXhVQ1POr5So6X67W3wUdNA/exec';
+var LANG = 'en';
+
+var STR = {
+  en: {
+    title: 'Check your packet status',
+    sub: 'Enter the reference from your confirmation screen — it looks like BP-20261021-1430 — to see where your building packet stands.',
+    refLabel: 'Packet reference',
+    refHint: 'You were shown this reference right after you submitted your packet.',
+    checkBtn: 'Check status',
+    checking: 'Checking…',
+    privacyTitle: 'Only the status is shown',
+    privacyBody: 'This page never shows names, addresses, or packet details — just how far along your packet is. Questions? Call City Hall at 918-675-4373.',
+    needRef: 'Enter your packet reference first — it looks like BP-20261021-1430.',
+    notFoundTitle: 'We could not find that packet',
+    notFoundBody: 'Check the reference and try again. If it still does not come up, call City Hall at 918-675-4373 and quote your reference.',
+    failedBody: 'The status could not be checked. Check your connection and try again, or call City Hall at 918-675-4373.',
+    statusFor: 'Status for',
+    statuses: {
+      'Received': ['Received', 'City Hall has your packet. It has not been reviewed yet.'],
+      'In review': ['In review', 'Your packet is being reviewed and prepared for council.'],
+      'Council-ready': ['Council-ready', 'Your packet has cleared every check and is ready to go to council.'],
+      'With council': ['With council', 'Your packet has been sent to council. City Hall will contact you with the decision.']
+    }
+  },
+  es: {
+    title: 'Consulte el estado de su paquete',
+    sub: 'Ingrese la referencia de su pantalla de confirmación — se ve así: BP-20261021-1430 — para ver en qué punto está su paquete de permiso de construcción.',
+    refLabel: 'Referencia del paquete',
+    refHint: 'Esta referencia se le mostró justo después de enviar su paquete.',
+    checkBtn: 'Consultar estado',
+    checking: 'Consultando…',
+    privacyTitle: 'Solo se muestra el estado',
+    privacyBody: 'Esta página nunca muestra nombres, direcciones ni detalles del paquete — solo en qué punto del proceso está. ¿Preguntas? Llame al Ayuntamiento al 918-675-4373.',
+    needRef: 'Primero ingrese la referencia de su paquete — se ve así: BP-20261021-1430.',
+    notFoundTitle: 'No encontramos ese paquete',
+    notFoundBody: 'Revise la referencia e inténtelo de nuevo. Si sigue sin aparecer, llame al Ayuntamiento al 918-675-4373 y dé su referencia.',
+    failedBody: 'No se pudo consultar el estado. Revise su conexión e inténtelo de nuevo, o llame al Ayuntamiento al 918-675-4373.',
+    statusFor: 'Estado de',
+    statuses: {
+      'Received': ['Recibido', 'El Ayuntamiento tiene su paquete. Aún no ha sido revisado.'],
+      'In review': ['En revisión', 'Su paquete está siendo revisado y preparado para el concejo.'],
+      'Council-ready': ['Listo para el concejo', 'Su paquete superó todas las revisiones y está listo para ir al concejo.'],
+      'With council': ['Con el concejo', 'Su paquete fue enviado al concejo. El Ayuntamiento se comunicará con usted con la decisión.']
+    }
+  }
+};
+
+function tx(k){ return STR[LANG][k]; }
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k = el.getAttribute('data-i18n');
+    if (STR[LANG][k]) el.textContent = STR[LANG][k];
+  });
+  document.title = LANG === 'es' ? 'Estado del paquete — Ciudad de Commerce, OK' : 'Packet Status — City of Commerce, OK';
+  document.documentElement.lang = LANG;
+}
+function setLang(l){
+  if (l === LANG) return;
+  LANG = l;
+  $('langEn').classList.toggle('active', l === 'en');
+  $('langEs').classList.toggle('active', l === 'es');
+  applyLang();
+}
+function $(id){ return document.getElementById(id); }
+
+$('langEn').addEventListener('click', function(){ setLang('en'); });
+$('langEs').addEventListener('click', function(){ setLang('es'); });
+
+function showResult(html){ $('result').innerHTML = html; }
+
+$('checkBtn').addEventListener('click', function(){
+  var ref = $('refInput').value.trim().toUpperCase();
+  if (!ref) {
+    showResult('<div class="notice red"><strong>' + tx('needRef') + '</strong></div>');
+    return;
+  }
+  var btn = $('checkBtn');
+  btn.disabled = true;
+  btn.textContent = tx('checking');
+  fetch(RECEIVER_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action: 'packet_status', ref: ref }) })
+    .then(function(r){ return r.json(); })
+    .then(function(res){
+      if (res && res.ok && res.status && STR.en.statuses[res.status]) {
+        var s = STR[LANG].statuses[res.status];
+        showResult('<div class="notice green"><p class="statusline">' + s[0] + '</p>' +
+          '<p style="margin:0">' + s[1] + '</p>' +
+          '<p class="refline">' + tx('statusFor') + ' ' + res.ref + '</p></div>');
+      } else {
+        showResult('<div class="notice red"><strong>' + tx('notFoundTitle') + '</strong>' + tx('notFoundBody') + '</div>');
+      }
+    })
+    .catch(function(){
+      showResult('<div class="notice red">' + tx('failedBody') + '</div>');
+    })
+    .finally(function(){
+      btn.disabled = false;
+      btn.textContent = tx('checkBtn');
+    });
+});
+$('refInput').addEventListener('keydown', function(e){ if (e.key === 'Enter') $('checkBtn').click(); });
+</script>
+</body>
+</html>
